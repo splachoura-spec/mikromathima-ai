@@ -397,11 +397,11 @@ function submitQuiz() {
     if (remaining > 0) {
       document.getElementById('action-buttons').innerHTML = `
         <button class="btn" onclick="window.location.reload()">Επιστροφή στο υλικό</button>
-        <button class="btn btn-primary" onclick="retryQuiz()"><span class="dot"></span> Νέα προσπάθεια →</button>
+        <a href="index.html" class="btn btn-primary" style="text-decoration:none;"><span class="dot"></span> Νέα προσπάθεια →</a>
       `;
     } else {
       document.getElementById('action-buttons').innerHTML = `
-        <button class="btn btn-primary" onclick="window.location.reload()"><span class="dot"></span> Επιστροφή στην αρχή →</button>
+        <a href="index.html" class="btn btn-primary" style="text-decoration:none;"><span class="dot"></span> Επιστροφή στην αρχή →</a>
       `;
     }
   }
