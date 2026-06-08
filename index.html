@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Εργασία Ε-3 — Ψηφιακό Μικρο-Μάθημα</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 900px; margin: 0 auto; }
+
+/* ASSIGNMENT INFO HEADER */
+.assignment-info { background: #1A1A1A; color: #fff; padding: 22px 28px; border-radius: 20px; margin-bottom: 30px; }
+.assignment-label { display: inline-block; background: #FFE566; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; }
+.assignment-info h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 26px; line-height: 1.2; margin-bottom: 16px; color: #FFE566; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.info-block { font-size: 13px; line-height: 1.5; }
+.info-block-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #FF9CB8; margin-bottom: 4px; }
+.info-block strong { color: #fff; }
+.info-block a { color: #FFE566; text-decoration: underline; }
+.info-block a:hover { color: #FF9CB8; }
+
+/* HERO */
+.hero { text-align: center; margin-bottom: 48px; }
+.hero-pill { display: inline-block; background: #B8DDE8; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 18px; text-transform: uppercase; border: 1.5px solid #1A1A1A; }
+.hero h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 72px; line-height: 0.95; margin-bottom: 18px; }
+.hero h1 .highlight { background: #FF9CB8; padding: 0 14px; }
+.hero-tagline { font-size: 17px; color: #555; max-width: 580px; margin: 0 auto 24px; line-height: 1.5; }
+.meta-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.meta-pill { background: #fff; border: 1.5px solid #1A1A1A; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+
+/* SECTIONS */
+.section { margin-bottom: 36px; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.section-num { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 32px; background: #FF9CB8; color: #1A1A1A; width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid #1A1A1A; }
+.section-info { flex-grow: 1; }
+.section-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 28px; line-height: 1.1; margin-bottom: 4px; }
+.section-time { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #555; }
+.activities { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.activity-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 14px; padding: 16px 18px; text-decoration: none; color: #1A1A1A; transition: all 0.2s; display: flex; flex-direction: column; gap: 6px; cursor: pointer; }
+.activity-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #1A1A1A; background: #FFE566; }
+.act-id { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #FF9CB8; }
+.act-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; line-height: 1.2; }
+.act-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.act-tag { background: #F8F8F4; border: 1px solid #1A1A1A; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; }
+.act-tag.interactive { background: #FF9CB8; }
+.act-tag.video { background: #B8DDE8; }
+.act-tag.static { background: #B5D89F; }
+.act-tag.quiz { background: #FFE566; }
+
+/* FOOTER */
+.footer-card { background: #FFE566; border: 2px solid #1A1A1A; padding: 28px; border-radius: 24px; margin-top: 36px; box-shadow: 6px 6px 0 #1A1A1A; }
+.footer-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; margin-bottom: 16px; }
+.footer-card p { font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
+.footer-card strong { background: #1A1A1A; color: #FFE566; padding: 2px 6px; }
+
+@media (max-width: 700px) { 
+  .hero h1 { font-size: 44px; } 
+  .section-num { width: 42px; height: 42px; font-size: 22px; } 
+  .section-title { font-size: 22px; } 
+  .info-grid { grid-template-columns: 1fr; }
+  .assignment-info h2 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ASSIGNMENT INFO -->
+  <div class="assignment-info">
+    <div class="assignment-label">Στοιχεία Εργασίας</div>
+    <h2>Εργασία Ε-3 — Ψηφιακό Μικρο-Μάθημα για την Ανάπτυξη Ψηφιακών Ικανοτήτων Πολιτών</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="info-block-label">Μάθημα</div>
+        <strong><a href="https://lefkippos.ds.unipi.gr/courses/ELEARN112/" target="_blank">(ΨΣ-ΗΜ-721) Εκπαιδευτική Τεχνολογία</a></strong>
+      </div>
+      <div class="info-block">
+        <div class="info-block-label">Πρόγραμμα Σπουδών</div>
+        <strong>ΠΜΣ Ηλεκτρονική Μάθηση<br>Πανεπιστήμιο Πειραιώς</strong>
+      </div>
+      <div class="info-block">
+        <div class="info-block-label">Φοιτήτρια</div>
+        <strong>Πλαχούρα Σταματία Μαρία</strong> · mhm25104
+      </div>
+      <div class="info-block">
+        <div class="info-block-label">Φοιτήτρια</div>
+        <strong>Σιάρκου Μυρτώ</strong> · mhm25106
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO — THE MICROCOURSE -->
+  <div class="hero">
+    <div class="hero-pill">Ψηφιακό Μικρομάθημα · DigComp 3.0 · Ικανότητα 1.3</div>
+    <h1>εμπιστεύομαι<br>το <span class="highlight">AI;</span></h1>
+    <p class="hero-tagline">Κριτική αξιολόγηση απαντήσεων εργαλείων Τεχνητής Νοημοσύνης στην καθημερινή ζωή.</p>
+    <div class="meta-row">
+      <span class="meta-pill">1,5 ώρα</span>
+      <span class="meta-pill">Ενδιάμεσο επίπεδο</span>
+      <span class="meta-pill">Self-paced</span>
+      <span class="meta-pill">Πιστοποίηση 80%</span>
+    </div>
+  </div>
+
+  <!-- 1. ΕΙΣΑΓΩΓΗ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-info">
+        <div class="section-title">Εισαγωγή</div>
+        <div class="section-time">15 λεπτά · Welcome + Pre-test</div>
+      </div>
+    </div>
+    <div class="activities">
+      <a href="1.1.1_kalosorisma.html" class="activity-card" target="_blank">
+        <div class="act-id">1.1.1</div>
+        <div class="act-title">Καλωσόρισμα</div>
+        <div class="act-meta"><span class="act-tag video">Βίντεο</span><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="1.1.2_mathisiaka.html" class="activity-card" target="_blank">
+        <div class="act-id">1.1.2</div>
+        <div class="act-title">Μαθησιακά Αποτελέσματα</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="1.1.3_domi.html" class="activity-card" target="_blank">
+        <div class="act-id">1.1.3</div>
+        <div class="act-title">Δομή Μικρομαθήματος</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="1.1.4_adeia.html" class="activity-card" target="_blank">
+        <div class="act-id">1.1.4</div>
+        <div class="act-title">Άδεια Χρήσης</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="1.1.5_syntelestes.html" class="activity-card" target="_blank">
+        <div class="act-id">1.1.5</div>
+        <div class="act-title">Συντελεστές</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="1.2.1_senario_eisagogis.html" class="activity-card" target="_blank">
+        <div class="act-id">1.2.1</div>
+        <div class="act-title">Σενάριο Εισαγωγής</div>
+        <div class="act-meta"><span class="act-tag static">HTML · Mockup</span></div>
+      </a>
+      <a href="1.2.2_accordion_categories.html" class="activity-card" target="_blank">
+        <div class="act-id">1.2.2</div>
+        <div class="act-title">Γιατί Μας Αφορά Όλους</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag">Accordion</span></div>
+      </a>
+      <a href="1.2.3_kentriko_erotima.html" class="activity-card" target="_blank">
+        <div class="act-id">1.2.3</div>
+        <div class="act-title">Κεντρικό Ερώτημα</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="1.3.2_pretest.html" class="activity-card" target="_blank">
+        <div class="act-id">1.3 · Pre-test</div>
+        <div class="act-title">Τι ξέρω ήδη;</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag quiz">Quiz · 4Q</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 2.1 ΠΑΡΟΥΣΙΑΣΗ ΕΝΝΟΙΩΝ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-info">
+        <div class="section-title">Παρουσίαση Εννοιών</div>
+        <div class="section-time">15 λεπτά · ΜΑ-1 · Bloom: Understand</div>
+      </div>
+    </div>
+    <div class="activities">
+      <a href="2.1.1_pos_litourgi_ai.html" class="activity-card" target="_blank">
+        <div class="act-id">2.1.1</div>
+        <div class="act-title">Πώς Λειτουργεί ένα AI</div>
+        <div class="act-meta"><span class="act-tag static">HTML · Διάγραμμα</span></div>
+      </a>
+      <a href="2.1.2_hallucination.html" class="activity-card" target="_blank">
+        <div class="act-id">2.1.2</div>
+        <div class="act-title">Τι είναι το Hallucination</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="2.1.3_dialog_cards.html" class="activity-card" target="_blank">
+        <div class="act-id">2.1.3</div>
+        <div class="act-title">Οι 4 Κατηγορίες Σφαλμάτων</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag">Dialog Cards</span></div>
+      </a>
+      <a href="2.1.4_synopsi.html" class="activity-card" target="_blank">
+        <div class="act-id">2.1.4</div>
+        <div class="act-title">Σύνοψη Ενότητας</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 2.2 ΕΞΑΣΚΗΣΗ ΚΑΤΑΝΟΗΣΗΣ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-info">
+        <div class="section-title">Εξάσκηση Κατανόησης</div>
+        <div class="section-time">15 λεπτά · ΜΑ-1 · Αυτοαξιολόγηση</div>
+      </div>
+    </div>
+    <div class="activities">
+      <a href="2.2.2_quiz_katanoisis.html" class="activity-card" target="_blank">
+        <div class="act-id">2.2</div>
+        <div class="act-title">Quiz με Σενάρια</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag quiz">3 ερωτήσεις</span><span class="act-tag">Guidance 2 επιπέδων</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 2.3 ΕΠΙΔΕΙΞΗ ΔΕΞΙΟΤΗΤΑΣ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-info">
+        <div class="section-title">Επίδειξη Δεξιότητας</div>
+        <div class="section-time">15 λεπτά · ΜΑ-2 · Bloom: Apply</div>
+      </div>
+    </div>
+    <div class="activities">
+      <a href="2.3.2_accordion.html" class="activity-card" target="_blank">
+        <div class="act-id">2.3.2</div>
+        <div class="act-title">Οδηγός 5 Βημάτων</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag">Accordion · 5 steps</span></div>
+      </a>
+      <a href="2.3.3_printable_card.html" class="activity-card" target="_blank">
+        <div class="act-id">2.3.3</div>
+        <div class="act-title">Εκτυπώσιμη Κάρτα Σύνοψης</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag">Checklist · Print</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 2.4 ΕΞΑΣΚΗΣΗ ΔΕΞΙΟΤΗΤΑΣ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-info">
+        <div class="section-title">Εξάσκηση Δεξιότητας</div>
+        <div class="section-time">15 λεπτά · ΜΑ-2 · Αυτοαξιολόγηση</div>
+      </div>
+    </div>
+    <div class="activities">
+      <a href="2.4.2_quiz_efarmogis.html" class="activity-card" target="_blank">
+        <div class="act-id">2.4</div>
+        <div class="act-title">Πραγματικά Σενάρια</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag quiz">3 σενάρια</span><span class="act-tag">Guidance 2 επιπέδων</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 3. ΤΕΛΙΚΗ ΑΞΙΟΛΟΓΗΣΗ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-info">
+        <div class="section-title">Τελική Αξιολόγηση</div>
+        <div class="section-time">15 λεπτά · ΜΑ-1 + ΜΑ-2 · Summative</div>
+      </div>
+    </div>
+    <div class="activities">
+      <a href="3.1_odigies_axiologisis.html" class="activity-card" target="_blank">
+        <div class="act-id">3.1</div>
+        <div class="act-title">Οδηγίες Τελικής Αξιολόγησης</div>
+        <div class="act-meta"><span class="act-tag static">HTML</span></div>
+      </a>
+      <a href="3.2_teliki_axiologisi.html" class="activity-card" target="_blank">
+        <div class="act-id">3.2</div>
+        <div class="act-title">Τελική Αξιολόγηση</div>
+        <div class="act-meta"><span class="act-tag interactive">Διαδραστικό</span><span class="act-tag quiz">10 ερωτήσεις</span><span class="act-tag">3 attempts · 80%</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-card">
+    <h2>Πληροφορίες Μικρομαθήματος</h2>
+    <p><strong>Πλαίσιο</strong>&nbsp;&nbsp;Εθνική Ακαδημία Ψηφιακών Ικανοτήτων · DigComp 3.0 · Ικανότητα 1.3 (Διαχείριση δεδομένων, πληροφοριών και ψηφιακού περιεχομένου) · Ενδιάμεσο Επίπεδο</p>
+    <p><strong>Άδεια</strong>&nbsp;&nbsp;Creative Commons CC BY-SA 4.0</p>
+  </div>
+</div>
+</body>
+</html>
