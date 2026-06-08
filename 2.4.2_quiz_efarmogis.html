@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Εξάσκηση Δεξιότητας — Πραγματικά Σενάρια</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 760px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 40px; }
+.header-pill { display: inline-block; background: #C8E2B5; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; color: #1A1A1A; }
+.header-sub { font-size: 15px; color: #555; max-width: 520px; margin: 0 auto; }
+.progress-wrap { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 4px; margin: 30px auto; max-width: 400px; }
+.progress-bar { background: #FF9CB8; height: 24px; border-radius: 100px; width: 33%; transition: width 0.5s ease; display: flex; align-items: center; justify-content: center; color: #1A1A1A; font-size: 12px; font-weight: 700; }
+.instructions { background: #FFEC8B; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 20px; margin-bottom: 24px; font-size: 13px; text-align: center; }
+.question-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 32px; margin-bottom: 24px; box-shadow: 6px 6px 0 #1A1A1A; }
+.scenario-tag { display: inline-block; background: #1A1A1A; color: #FFE566; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px; padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+.question-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 26px; line-height: 1.2; margin-bottom: 16px; }
+.scenario-box { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px; line-height: 1.6; }
+.scenario-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; text-transform: uppercase; }
+.ai-quote { background: #fff; border-left: 3px solid #FF9CB8; padding: 12px 14px; margin-top: 10px; font-style: italic; border-radius: 4px; }
+.question-text { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 18px; cursor: pointer; font-size: 14px; font-weight: 500; text-align: left; font-family: inherit; transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px; line-height: 1.4; }
+.option:hover:not(:disabled) { background: #FFE566; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #1A1A1A; }
+.option-letter { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 2px solid #1A1A1A; width: 32px; height: 32px; border-radius: 50%; font-weight: 700; flex-shrink: 0; font-family: 'DM Serif Display', serif; font-style: italic; }
+.option.selected.correct { background: #C8E2B5; }
+.option.selected.wrong { background: #FFD5DF; }
+.option:disabled { cursor: default; }
+.feedback { margin-top: 16px; padding: 16px 18px; border-radius: 14px; border: 2px solid #1A1A1A; font-size: 14px; line-height: 1.5; display: none; animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.feedback.show { display: block; }
+.feedback.correct { background: #C8E2B5; }
+.feedback.wrong { background: #FFD5DF; }
+.feedback-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; background: #1A1A1A; color: #fff; margin-bottom: 8px; }
+.guidance { margin-top: 12px; padding: 14px 18px; border-radius: 14px; border: 2px solid #1A1A1A; font-size: 13px; line-height: 1.5; background: #FFEC8B; display: none; animation: slideIn 0.3s ease; }
+.guidance.show { display: block; }
+.guidance-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; background: #FF9CB8; color: #1A1A1A; margin-bottom: 8px; border: 1.5px solid #1A1A1A; }
+.try-again { margin-top: 12px; }
+.btn-tryagain { background: #B8DDE8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 8px 18px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+.btn-tryagain:hover { background: #1A1A1A; color: #fff; }
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
+.btn { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover:not(:disabled) { background: #1A1A1A; color: #fff; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-primary { background: #FF9CB8; }
+.btn-primary:hover:not(:disabled) { background: #1A1A1A; color: #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+.completion { display: none; text-align: center; background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 48px 32px; box-shadow: 6px 6px 0 #1A1A1A; }
+.completion.show { display: block; }
+.completion h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 36px; line-height: 1.1; margin-bottom: 16px; }
+.completion p { color: #555; margin-bottom: 24px; font-size: 16px; max-width: 480px; margin: 0 auto 16px; }
+.completion ul { text-align: left; max-width: 460px; margin: 0 auto 24px; }
+.completion li { background: #FFEC8B; padding: 10px 16px; margin-bottom: 6px; border-radius: 8px; font-size: 14px; font-weight: 500; border: 1.5px solid #1A1A1A; }
+@media (max-width: 640px) { .header h1 { font-size: 32px; } .question-title { font-size: 20px; } .question-card { padding: 22px; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">2.4 · Εξάσκηση Δεξιότητας · ΜΑ-2</div>
+    <h1>πραγματικά <span class="highlight">σενάρια</span></h1>
+    <p class="header-sub">Εφάρμοσε τον Οδηγό 5 Βημάτων σε καθημερινές καταστάσεις χρήσης AI.</p>
+  </div>
+  
+  <div class="instructions">
+    Αυτοαξιολόγηση — απεριόριστες προσπάθειες, δεν προσμετράται στον τελικό βαθμό. Αν απαντήσεις λάθος, θα λάβεις Καθοδήγηση 2 επιπέδων.
+  </div>
+  
+  <div class="progress-wrap"><div class="progress-bar" id="progress">1 / 3</div></div>
+  
+  <div id="quiz-area">
+  
+  <!-- ΣΕΝΑΡΙΟ 1 -->
+  <div class="question-card" data-q="1">
+    <div class="scenario-tag">Σενάριο 01</div>
+    <h2 class="question-title">Ίδρυση ατομικής επιχείρησης</h2>
+    <div class="scenario-box">
+      <span class="scenario-label">Πλαίσιο</span>
+      <p>Ο Γιώργος σκέφτεται να ανοίξει ατομική επιχείρηση και ρωτά το ChatGPT: <em>«Τι χρειάζομαι για να ανοίξω ατομική επιχείρηση στην Ελλάδα και πόσο κοστίζει;»</em></p>
+      <div class="ai-quote">
+        «Για την ίδρυση ατομικής επιχείρησης στην Ελλάδα χρειάζεσαι:<br>
+        1. Εγγραφή στο ΓΕΜΗ (κόστος 10€)<br>
+        2. Δήλωση έναρξης στην ΔΟΥ<br>
+        3. Εγγραφή στον ΕΦΚΑ (μηνιαία εισφορά 252€)<br>
+        4. Σύμφωνα με τον Νόμο 4635/2019, η διαδικασία ολοκληρώνεται σε 1 εργάσιμη ημέρα.»
+      </div>
+    </div>
+    <p class="question-text">Τι θα έκανες πριν χρησιμοποιήσεις αυτή την πληροφορία για να ανοίξεις την επιχείρησή σου;</p>
+    <div class="options">
+      <button class="option" data-correct="false" data-key="a"><span class="option-letter">α</span>Θα τη χρησιμοποιούσα κατευθείαν — η απάντηση είναι αναλυτική και αναφέρει συγκεκριμένο νόμο</button>
+      <button class="option" data-correct="true" data-key="b"><span class="option-letter">β</span>Θα επαλήθευα τα κόστη και τον νόμο σε επίσημες πηγές (gov.gr, ΕΦΚΑ, ΓΕΜΗ) πριν προχωρήσω</button>
+      <button class="option" data-correct="false" data-key="c"><span class="option-letter">γ</span>Θα ρωτούσα ξανά το ChatGPT για επιβεβαίωση</button>
+      <button class="option" data-correct="false" data-key="d"><span class="option-letter">δ</span>Θα έψαχνα στο Google για επιβεβαίωση</button>
+    </div>
+    <div class="feedback wrong" data-fb="a">
+      <span class="feedback-label">Επικίνδυνο</span>
+      <p>Αυτή είναι η πιο επικίνδυνη επιλογή. Το γεγονός ότι το AI αναφέρει συγκεκριμένο νόμο (4635/2019) δεν εγγυάται ότι ο νόμος υπάρχει — ούτε ότι περιέχει αυτές τις διατάξεις. Επιπλέον, τα κόστη ΕΦΚΑ και ΓΕΜΗ αλλάζουν συχνά.</p>
+    </div>
+    <div class="feedback correct" data-fb="b">
+      <span class="feedback-label">Σωστά</span>
+      <p>Άριστη προσέγγιση! Εφαρμόζεις: <strong>Βήμα 1</strong> (ελέγξιμα στοιχεία) → <strong>Βήμα 2</strong> (επίσημες πηγές: gov.gr για διαδικασία, businessportal.gr για ΓΕΜΗ, efka.gov.gr για εισφορές, et.gr για τον Νόμο 4635/2019) → <strong>Βήμα 4</strong> (διασταύρωση).<br><br>Για νομικά και φορολογικά θέματα, η επαλήθευση σε επίσημες πηγές είναι <strong>υποχρεωτική</strong>.</p>
+    </div>
+    <div class="feedback wrong" data-fb="c">
+      <span class="feedback-label">Λάθος</span>
+      <p>Δεν είναι αξιόπιστη μέθοδος. Το ίδιο AI μπορεί να επαναλάβει το ίδιο σφάλμα ή να σου δώσει διαφορετική (αλλά εξίσου λανθασμένη) απάντηση. <strong>Άλλα AI εργαλεία δεν αποτελούν αξιόπιστη πηγή επαλήθευσης</strong> (Βήμα 4 του οδηγού).</p>
+    </div>
+    <div class="feedback wrong" data-fb="d">
+      <span class="feedback-label">Όχι αρκετό</span>
+      <p>Είναι καλύτερο από τυφλή εμπιστοσύνη, αλλά το Google απλώς σου εμφανίζει σελίδες — δεν διακρίνει ποιες είναι αξιόπιστες. Για νομικά θέματα, χρειάζεσαι <strong>επίσημες κυβερνητικές πηγές</strong> συγκεκριμένα.</p>
+    </div>
+    <div class="guidance" data-level="1">
+      <span class="guidance-label">Καθοδήγηση 01</span>
+      <p>Ποιο βήμα του οδηγού χρειάζεσαι όταν το AI αναφέρει νόμους και κόστη; Σκέψου ποιες είναι οι πιο αξιόπιστες πηγές για ελληνική νομοθεσία και φορολογικές πληροφορίες.</p>
+    </div>
+    <div class="guidance" data-level="2">
+      <span class="guidance-label">Καθοδήγηση 02</span>
+      <p>Εφαρμογή Βημάτων 2 & 4 του Οδηγού:<br>
+      → Νόμος 4635/2019 → Εθνικό Τυπογραφείο (et.gr)<br>
+      → Κόστη ΓΕΜΗ → businessportal.gr<br>
+      → Εισφορές ΕΦΚΑ → efka.gov.gr<br>
+      → Διαδικασία → gov.gr<br><br>
+      Αυτές είναι οι μόνες αξιόπιστες πηγές. Άλλα AI και forums δεν αποτελούν αξιόπιστη επαλήθευση.</p>
+    </div>
+    <div class="try-again" style="display:none;">
+      <button class="btn-tryagain">Δοκίμασε ξανά</button>
+    </div>
+  </div>
+  
+  <!-- ΣΕΝΑΡΙΟ 2 -->
+  <div class="question-card" data-q="2" style="display:none;">
+    <div class="scenario-tag">Σενάριο 02</div>
+    <h2 class="question-title">Στατιστικά social media για παρουσίαση</h2>
+    <div class="scenario-box">
+      <span class="scenario-label">Πλαίσιο</span>
+      <p>Η Ελένη ετοιμάζει παρουσίαση για τη δουλειά της και ρωτά το Gemini: <em>«Δώσε μου στατιστικά για τη χρήση social media στην Ελλάδα το 2024.»</em></p>
+      <div class="ai-quote">
+        «Στην Ελλάδα, σύμφωνα με την έρευνα Digital 2024 της We Are Social, το 73,4% του πληθυσμού χρησιμοποιεί social media. Το Facebook παραμένει το πιο δημοφιλές με 5,8 εκατομμύρια χρήστες, ακολουθούμενο από το Instagram (4,2 εκ.) και το TikTok (3,1 εκ.).»
+      </div>
+    </div>
+    <p class="question-text">Τι θα έκανες πριν χρησιμοποιήσεις αυτά τα στατιστικά στην παρουσίασή σου;</p>
+    <div class="options">
+      <button class="option" data-correct="false" data-key="a"><span class="option-letter">α</span>Θα τα χρησιμοποιούσα — η έρευνα We Are Social είναι γνωστή και αξιόπιστη</button>
+      <button class="option" data-correct="false" data-key="b"><span class="option-letter">β</span>Θα τα στρογγυλοποιούσα για να φαίνονται πιο αξιόπιστα</button>
+      <button class="option" data-correct="true" data-key="c"><span class="option-letter">γ</span>Θα αναζητούσα την πρωτογενή έρευνα Digital 2024 της We Are Social για να επαληθεύσω τα νούμερα</button>
+      <button class="option" data-correct="false" data-key="d"><span class="option-letter">δ</span>Θα ζητούσα από το Gemini τον σύνδεσμο της έρευνας</button>
+    </div>
+    <div class="feedback wrong" data-fb="a">
+      <span class="feedback-label">Επικίνδυνο</span>
+      <p>Ακόμη και αν η έρευνα We Are Social είναι πραγματικά αξιόπιστη, αυτό <strong>δεν εγγυάται</strong> ότι τα συγκεκριμένα νούμερα που σου έδωσε το AI είναι σωστά. Τα AI εργαλεία συχνά παράγουν αληθοφανείς αλλά <strong>επινοημένους αριθμούς</strong> — ειδικά όταν αναφέρονται σε γνωστές πηγές.</p>
+    </div>
+    <div class="feedback wrong" data-fb="b">
+      <span class="feedback-label">Δεν λύνει το πρόβλημα</span>
+      <p>Η στρογγυλοποίηση δεν λύνει το πρόβλημα — αν τα νούμερα είναι επινοημένα, η στρογγυλοποίησή τους εξακολουθεί να δίνει επινοημένα νούμερα. Επιπλέον, σε επαγγελματική παρουσίαση η ακρίβεια έχει σημασία.</p>
+    </div>
+    <div class="feedback correct" data-fb="c">
+      <span class="feedback-label">Σωστά</span>
+      <p>Άριστη προσέγγιση! Εφαρμόζεις: <strong>Βήμα 1</strong> (ελέγξιμα ποσοστά) → <strong>Βήμα 2</strong> (αναζήτηση πρωτογενούς έρευνας στο επίσημο site της We Are Social: datareportal.com/reports/digital-2024-greece) → <strong>Βήμα 4</strong> (διασταύρωση με ΕΛΣΤΑΤ ή Eurostat).</p>
+    </div>
+    <div class="feedback wrong" data-fb="d">
+      <span class="feedback-label">Επικίνδυνο</span>
+      <p>Τα AI εργαλεία <strong>παράγουν συχνά επινοημένους συνδέσμους</strong> που δεν οδηγούν πουθενά. Ακόμη κι αν σου δώσει σύνδεσμο, <strong>πρέπει να τον επαληθεύσεις</strong>.</p>
+    </div>
+    <div class="guidance" data-level="1">
+      <span class="guidance-label">Καθοδήγηση 01</span>
+      <p>Ποια κατηγορία σφαλμάτων εμφανίζεται όταν το AI παρουσιάζει ακριβή στατιστικά νούμερα; Ποιο βήμα του οδηγού σου λέει να ελέγξεις την πηγή;</p>
+    </div>
+    <div class="guidance" data-level="2">
+      <span class="guidance-label">Καθοδήγηση 02</span>
+      <p>Εφαρμογή Βήματος 2:<br>
+      → datareportal.com (επίσημο site Digital Reports)<br>
+      → wearesocial.com<br>
+      → ΕΛΣΤΑΤ (statistics.gr)<br>
+      → Eurostat<br><br>
+      Πάντα αναζητούμε την <strong>πρωτογενή</strong> πηγή — όχι μεταφράσεις ή αναφορές τρίτων.</p>
+    </div>
+    <div class="try-again" style="display:none;">
+      <button class="btn-tryagain">Δοκίμασε ξανά</button>
+    </div>
+  </div>
+  
+  <!-- ΣΕΝΑΡΙΟ 3 -->
+  <div class="question-card" data-q="3" style="display:none;">
+    <div class="scenario-tag">Σενάριο 03</div>
+    <h2 class="question-title">Βιβλιοπροτάσεις Ελλήνων συγγραφέων</h2>
+    <div class="scenario-box">
+      <span class="scenario-label">Πλαίσιο</span>
+      <p>Ο Νίκος θέλει να διαβάσει σύγχρονη ελληνική λογοτεχνία και ρωτά το ChatGPT: <em>«Πρότεινέ μου 3 βραβευμένα βιβλία σύγχρονων Ελλήνων συγγραφέων.»</em></p>
+      <div class="ai-quote">
+        «1. "Το Χρώμα της Σιωπής" της Μαρίας Σταυρίδου (Πατάκης, 2021) — Κρατικό Βραβείο Μυθιστορήματος<br>
+        2. "Πέρα από τα Σύννεφα" του Δημήτρη Αναγνώστου (Καστανιώτης, 2019) — Βραβείο Αναγνώστη<br>
+        3. "Οι Λέξεις που Χάθηκαν" της Ελένης Καρρά (Μεταίχμιο, 2022) — Βραβείο Διηγήματος Εταιρείας Συγγραφέων»
+      </div>
+    </div>
+    <p class="question-text">Τι θα έκανες πριν αγοράσεις αυτά τα βιβλία;</p>
+    <div class="options">
+      <button class="option" data-correct="false" data-key="a"><span class="option-letter">α</span>Θα τα αγόραζα — οι εκδοτικοί οίκοι είναι γνωστοί και αξιόπιστοι</button>
+      <button class="option" data-correct="true" data-key="b"><span class="option-letter">β</span>Θα έψαχνα κάθε βιβλίο στο site του εκδοτικού οίκου και στα ηλεκτρονικά βιβλιοπωλεία</button>
+      <button class="option" data-correct="false" data-key="c"><span class="option-letter">γ</span>Θα έψαχνα το όνομα του συγγραφέα στη Wikipedia</button>
+      <button class="option" data-correct="false" data-key="d"><span class="option-letter">δ</span>Θα ρωτούσα κάποιον γνωστό που διαβάζει πολύ</button>
+    </div>
+    <div class="feedback wrong" data-fb="a">
+      <span class="feedback-label">Επικίνδυνο</span>
+      <p>Το γεγονός ότι αναφέρονται γνωστοί εκδοτικοί οίκοι (Πατάκης, Καστανιώτης, Μεταίχμιο) δεν εγγυάται ότι τα συγκεκριμένα βιβλία υπάρχουν. Τα AI εργαλεία συχνά <strong>επινοούν τίτλους βιβλίων, συγγραφείς και βραβεία</strong> συνδυάζοντας αληθοφανή στοιχεία.</p>
+    </div>
+    <div class="feedback correct" data-fb="b">
+      <span class="feedback-label">Σωστά</span>
+      <p>Άριστη προσέγγιση! Εφαρμόζεις: <strong>Βήμα 1</strong> (τίτλοι, συγγραφείς, βραβεία) → <strong>Βήμα 2</strong> (patakis.gr, kastaniotis.com, metaixmio.gr) → <strong>Βήμα 4</strong> (διασταύρωση με public.gr, politeianet.gr, Εταιρεία Συγγραφέων).<br><br>Αν τα βιβλία είναι πραγματικά, θα τα βρεις εύκολα σε αυτές τις πηγές.</p>
+    </div>
+    <div class="feedback wrong" data-fb="c">
+      <span class="feedback-label">Όχι αρκετό</span>
+      <p>Καλή αρχή, αλλά <strong>όχι αρκετά</strong>. Η Wikipedia είναι χρήσιμη ως αφετηρία, αλλά πολλοί σύγχρονοι Έλληνες συγγραφείς δεν έχουν Wikipedia entry, και δεν θα επιβεβαιώσει αν συγκεκριμένο βιβλίο υπάρχει.</p>
+    </div>
+    <div class="feedback wrong" data-fb="d">
+      <span class="feedback-label">Όχι αξιόπιστο</span>
+      <p>Μπορεί να είναι χρήσιμο για άποψη, αλλά δεν είναι αξιόπιστη μέθοδος επαλήθευσης ύπαρξης βιβλίου. Ο γνωστός σου μπορεί απλά να μην έχει ακούσει για το συγκεκριμένο βιβλίο.</p>
+    </div>
+    <div class="guidance" data-level="1">
+      <span class="guidance-label">Καθοδήγηση 01</span>
+      <p>Ποια κατηγορία σφαλμάτων αφορά συγκεκριμένα ονόματα και τίτλους; Πού θα έβρισκες σίγουρα ένα ελληνικό βιβλίο, αν υπήρχε πραγματικά;</p>
+    </div>
+    <div class="guidance" data-level="2">
+      <span class="guidance-label">Καθοδήγηση 02</span>
+      <p>Εφαρμογή Βήματος 2 για ελληνικά βιβλία:<br>
+      → Επίσημα sites εκδοτικών οίκων (patakis.gr, kastaniotis.com, metaixmio.gr)<br>
+      → Ηλεκτρονικά βιβλιοπωλεία (public.gr, politeianet.gr, ianos.gr)<br>
+      → Εθνική Βιβλιοθήκη (nlg.gr)<br>
+      → Εταιρεία Συγγραφέων για βραβεία (authors.gr)<br><br>
+      Αν ένα βιβλίο δεν εμφανίζεται πουθενά, είναι πιθανότατα επινοημένο.</p>
+    </div>
+    <div class="try-again" style="display:none;">
+      <button class="btn-tryagain">Δοκίμασε ξανά</button>
+    </div>
+  </div>
+  
+  <div class="nav-buttons">
+    <button class="btn" id="btn-prev" disabled>← Προηγούμενη</button>
+    <button class="btn btn-primary" id="btn-next" disabled><span class="dot"></span> Επόμενη →</button>
+  </div>
+  </div>
+  
+  <div class="completion" id="completion">
+    <h2>συγχαρητήρια — ολοκλήρωσες <span style="background:#FF9CB8; padding:0 8px;">την εξάσκηση εφαρμογής</span></h2>
+    <p>Τώρα έχεις εξασκηθεί στην εφαρμογή του Οδηγού 5 Βημάτων σε πραγματικά σενάρια:</p>
+    <ul>
+      <li>Νομικά & επιχειρηματικά θέματα</li>
+      <li>Στατιστικά & δεδομένα</li>
+      <li>Βιβλιογραφικές αναφορές</li>
+    </ul>
+    <p>Σε λίγο θα δεις την <strong>Τελική Αξιολόγηση</strong>, όπου θα αποδείξεις ότι μπορείς να εφαρμόσεις όλα όσα έμαθες.</p>
+    <button class="btn btn-primary"><span class="dot"></span> Πάμε στην τελική αξιολόγηση →</button>
+  </div>
+</div>
+
+<script>
+let currentQ = 1;
+const totalQ = 3;
+const completed = {};
+const wrongAttempts = {};
+
+const progressBar = document.getElementById('progress');
+const btnNext = document.getElementById('btn-next');
+const btnPrev = document.getElementById('btn-prev');
+
+function updateProgress() {
+  const pct = (currentQ / totalQ) * 100;
+  progressBar.style.width = pct + '%';
+  progressBar.textContent = currentQ + ' / ' + totalQ;
+}
+
+function showQuestion(num) {
+  document.querySelectorAll('.question-card').forEach(card => {
+    card.style.display = card.dataset.q == num ? 'block' : 'none';
+  });
+  btnPrev.disabled = num === 1;
+  btnNext.disabled = !completed[num];
+  btnNext.innerHTML = num === totalQ ? '<span class="dot"></span> Ολοκλήρωση →' : '<span class="dot"></span> Επόμενη →';
+  updateProgress();
+}
+
+document.querySelectorAll('.option').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const card = this.closest('.question-card');
+    const qNum = card.dataset.q;
+    const isCorrect = this.dataset.correct === 'true';
+    const fbKey = this.dataset.key;
+    
+    card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected', isCorrect ? 'correct' : 'wrong');
+    card.querySelectorAll('.option').forEach(o => o.disabled = true);
+    
+    card.querySelectorAll('.feedback').forEach(fb => fb.classList.remove('show'));
+    const fb = card.querySelector('.feedback[data-fb="' + fbKey + '"]');
+    if (fb) fb.classList.add('show');
+    
+    if (isCorrect) {
+      completed[qNum] = true;
+      btnNext.disabled = false;
+      card.querySelectorAll('.guidance').forEach(g => g.classList.remove('show'));
+      card.querySelector('.try-again').style.display = 'none';
+    } else {
+      wrongAttempts[qNum] = (wrongAttempts[qNum] || 0) + 1;
+      const guidanceLevel = Math.min(wrongAttempts[qNum], 2);
+      const guidance = card.querySelector('.guidance[data-level="' + guidanceLevel + '"]');
+      if (guidance) {
+        card.querySelectorAll('.guidance').forEach(g => g.classList.remove('show'));
+        setTimeout(() => guidance.classList.add('show'), 200);
+      }
+      card.querySelector('.try-again').style.display = 'block';
+    }
+  });
+});
+
+document.querySelectorAll('.btn-tryagain').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const card = this.closest('.question-card');
+    card.querySelectorAll('.option').forEach(o => {
+      o.classList.remove('selected', 'correct', 'wrong');
+      o.disabled = false;
+    });
+    card.querySelectorAll('.feedback').forEach(fb => fb.classList.remove('show'));
+    this.closest('.try-again').style.display = 'none';
+  });
+});
+
+btnNext.addEventListener('click', () => {
+  if (currentQ === totalQ) {
+    document.getElementById('quiz-area').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.instructions').style.display = 'none';
+    document.getElementById('completion').classList.add('show');
+  } else {
+    currentQ++;
+    showQuestion(currentQ);
+  }
+});
+
+btnPrev.addEventListener('click', () => {
+  if (currentQ > 1) {
+    currentQ--;
+    showQuestion(currentQ);
+  }
+});
+
+updateProgress();
+</script>
+</body>
+</html>

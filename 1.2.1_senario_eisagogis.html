@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Σενάριο Εισαγωγής — Μετφορμίνη + Καφές</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 760px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #FFD5DF; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.intro-box { background: #fff; border: 2px solid #1A1A1A; border-radius: 20px; padding: 24px 28px; box-shadow: 4px 4px 0 #1A1A1A; margin-bottom: 24px; }
+.intro-box p { font-size: 16px; line-height: 1.6; margin-bottom: 10px; }
+.intro-box .lead { font-style: italic; color: #555; font-size: 17px; }
+.chat-mockup { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 20px; padding: 20px; box-shadow: 4px 4px 0 #1A1A1A; margin-bottom: 24px; }
+.chat-header { background: #1A1A1A; color: #fff; padding: 10px 16px; border-radius: 12px 12px 0 0; margin: -20px -20px 16px -20px; display: flex; align-items: center; gap: 10px; }
+.chat-dots { display: flex; gap: 6px; }
+.chat-dot { width: 10px; height: 10px; border-radius: 50%; background: #FF9CB8; }
+.chat-dot:nth-child(2) { background: #FFE566; }
+.chat-dot:nth-child(3) { background: #B5D89F; }
+.chat-title { font-size: 13px; font-weight: 600; }
+.message { margin-bottom: 14px; }
+.msg-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 4px; padding-left: 4px; }
+.msg-bubble { background: #fff; border: 2px solid #1A1A1A; border-radius: 16px 16px 16px 4px; padding: 14px 18px; font-size: 14px; line-height: 1.5; }
+.msg-bubble.user { background: #B8DDE8; border-radius: 16px 16px 4px 16px; }
+.msg-bubble.ai { background: #FFD5DF; }
+.msg-bubble.ai em { background: rgba(255,255,255,0.6); padding: 0 4px; border-radius: 3px; }
+.reveal-card { background: #FFE566; border: 2px solid #1A1A1A; border-radius: 20px; padding: 24px 28px; box-shadow: 4px 4px 0 #1A1A1A; }
+.reveal-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; }
+.reveal-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; margin-bottom: 12px; line-height: 1.2; }
+.reveal-card p { font-size: 15px; line-height: 1.6; margin-bottom: 10px; }
+.reveal-card .crucial { background: #1A1A1A; color: #FFE566; padding: 12px 16px; border-radius: 10px; margin-top: 14px; font-weight: 600; font-size: 14px; }
+.next-section { text-align: center; margin-top: 24px; }
+.btn { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 14px 28px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover { background: #1A1A1A; color: #FF9CB8; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+@media (max-width: 640px) { .header h1 { font-size: 32px; } .intro-box, .reveal-card { padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-pill">1.2.1 · Σενάριο Εισαγωγής</div>
+    <h1>ένα σενάριο που <span class="highlight">πιθανότατα έζησες</span></h1>
+  </div>
+  <div class="intro-box">
+    <p class="lead">Φαντάσου το εξής:</p>
+    <p>Έχεις αρχίσει να παίρνεις ένα νέο φάρμακο για το διαβήτη — τη <strong>μετφορμίνη</strong>. Θέλεις να μάθεις αν μπορείς να συνεχίσεις να πίνεις τον πρωινό σου καφέ.</p>
+    <p>Αντί να ρωτήσεις τον γιατρό σου, ανοίγεις το <strong>ChatGPT</strong>.</p>
+  </div>
+  <div class="chat-mockup">
+    <div class="chat-header">
+      <div class="chat-dots"><div class="chat-dot"></div><div class="chat-dot"></div><div class="chat-dot"></div></div>
+      <div class="chat-title">ChatGPT</div>
+    </div>
+    <div class="message">
+      <div class="msg-label">Εσύ</div>
+      <div class="msg-bubble user">Μπορώ να πίνω καφέ ενώ παίρνω μετφορμίνη;</div>
+    </div>
+    <div class="message">
+      <div class="msg-label">ChatGPT</div>
+      <div class="msg-bubble ai">
+        Γενικά, δεν υπάρχει άμεση αλληλεπίδραση μεταξύ μετφορμίνης και καφεΐνης. Ωστόσο, η υπερβολική κατανάλωση καφέ μπορεί να επηρεάσει τα επίπεδα σακχάρου στο αίμα.<br><br>
+        <em>Συνιστάται η κατανάλωση έως 2 φλιτζανιών καφέ ημερησίως. Σύμφωνα με μελέτη που δημοσιεύθηκε στο Journal of Clinical Endocrinology (2019), η μέτρια κατανάλωση καφεΐνης δεν επηρεάζει σημαντικά τη δράση της μετφορμίνης σε ασθενείς με διαβήτη τύπου 2.</em>
+      </div>
+    </div>
+  </div>
+  <div class="reveal-card">
+    <span class="reveal-label">Η αλήθεια</span>
+    <h2>αλλά μια στιγμή...</h2>
+    <p>Διαβάζεις την απάντηση και σκέφτεσαι: <em>«Ωραία, άρα μπορώ να πίνω καφέ — αρκεί να μην παρακάνω.»</em></p>
+    <p>Το AI ανέφερε μια συγκεκριμένη επιστημονική μελέτη. <strong>Υπάρχει αυτή η μελέτη στην πραγματικότητα;</strong> Και τα 2 φλιτζάνια — από πού προκύπτουν;</p>
+    <div class="crucial">Η απάντηση περιέχει στοιχεία που το AI εφηύρε — παρουσιάζοντάς τα με απόλυτη σιγουριά.</div>
+  </div>
+  <div class="next-section">
+    <button class="btn"><span class="dot"></span> Γιατί μας αφορά όλους →</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Οι 4 Κατηγορίες Σφαλμάτων AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: 
+      linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #1A1A1A;
+  }
+  
+  .container { max-width: 980px; margin: 0 auto; }
+  
+  .header { text-align: center; margin-bottom: 40px; }
+  .header-pill { display: inline-block; background: #B5D89F; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 56px; line-height: 1; margin-bottom: 12px; }
+  .header h1 .highlight { background: #FF9CB8; padding: 0 12px; color: #1A1A1A; }
+  .header-sub { font-size: 15px; color: #555; max-width: 520px; margin: 0 auto; }
+  
+  .instructions {
+    background: #FFEC8B;
+    border: 2px solid #1A1A1A;
+    border-radius: 14px;
+    padding: 14px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .card-wrapper {
+    perspective: 1500px;
+    height: 380px;
+  }
+  
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  
+  .card.flipped { transform: rotateY(180deg); }
+  
+  .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 2px solid #1A1A1A;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 6px 6px 0 #1A1A1A;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-front { background: #fff; justify-content: space-between; }
+  .card-front.pink { background: #FFD5DF; }
+  .card-front.blue { background: #C8E5EE; }
+  .card-front.green { background: #C8E2B5; }
+  .card-front.yellow { background: #FFEC8B; }
+  
+  .card-back {
+    background: #fff;
+    transform: rotateY(180deg);
+    overflow-y: auto;
+  }
+  
+  .card-number {
+    display: inline-block;
+    background: #1A1A1A;
+    color: #fff;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    align-self: flex-start;
+    margin-bottom: 16px;
+  }
+  
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  
+  .card-front .card-subtitle {
+    font-size: 14px;
+    color: #1A1A1A;
+    opacity: 0.7;
+    flex-grow: 1;
+    margin-bottom: 20px;
+  }
+  
+  .flip-hint {
+    background: #1A1A1A;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .flip-hint::before {
+    content: "→";
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+  }
+  
+  .card-back .card-number { background: #FF9CB8; color: #1A1A1A; }
+  
+  .card-back h3 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  
+  .back-section {
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .back-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 6px;
+  }
+  
+  .label-example { background: #FFD5DF; color: #1A1A1A; }
+  .label-reality { background: #C8E5EE; color: #1A1A1A; }
+  .label-spot { background: #C8E2B5; color: #1A1A1A; }
+  
+  .back-section .example-quote {
+    font-style: italic;
+    color: #555;
+    padding-left: 12px;
+    border-left: 2px solid #1A1A1A;
+    margin-top: 4px;
+  }
+  
+  .back-close {
+    margin-top: 12px;
+    background: #1A1A1A;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    align-self: flex-start;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  
+  .progress-bar {
+    background: #fff;
+    border: 2px solid #1A1A1A;
+    border-radius: 100px;
+    padding: 4px;
+    margin: 0 auto 30px;
+    max-width: 400px;
+  }
+  
+  .progress-inner {
+    background: #FF9CB8;
+    height: 24px;
+    border-radius: 100px;
+    width: 0%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1A1A1A;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .summary {
+    background: #fff;
+    border: 2px solid #1A1A1A;
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: 6px 6px 0 #1A1A1A;
+    text-align: center;
+    display: none;
+    animation: slideIn 0.5s ease;
+  }
+  
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .summary.show { display: block; }
+  
+  .summary h2 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  
+  .summary-list { text-align: left; max-width: 560px; margin: 0 auto 24px; }
+  .summary-item { padding: 12px 16px; background: #F8F8F4; border-left: 4px solid #FF9CB8; border-radius: 8px; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+  
+  .btn { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+  .btn:hover { background: #1A1A1A; color: #FF9CB8; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+  .dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+  .btn:hover .dot { background: #FFE566; }
+  
+  @media (max-width: 720px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 36px; }
+    .card-title { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">2.1.3 · Παρουσίαση Εννοιών</div>
+    <h1>οι 4 κατηγορίες <span class="highlight">σφαλμάτων AI</span></h1>
+    <p class="header-sub">Κάνε κλικ σε κάθε κάρτα για να δεις την επεξήγηση και πραγματικό παράδειγμα.</p>
+  </div>
+  
+  <div class="instructions">Πάτησε σε κάθε κάρτα — μόλις τις δεις και τις 4, θα ξεκλειδωθεί η σύνοψη</div>
+  
+  <div class="progress-bar"><div class="progress-inner" id="progress">0 / 4 κάρτες</div></div>
+  
+  <div class="cards-grid">
+    
+    <!-- ΚΑΡΤΑ 1 -->
+    <div class="card-wrapper">
+      <div class="card" data-card="1">
+        <div class="card-face card-front pink">
+          <div>
+            <div class="card-number">Κάρτα 01</div>
+            <h2 class="card-title">Επινοημένες πηγές</h2>
+            <p class="card-subtitle">Το AI αναφέρεται σε μελέτες, βιβλία ή άρθρα που δεν υπάρχουν στην πραγματικότητα.</p>
+          </div>
+          <span class="flip-hint">Πάτησε για παράδειγμα</span>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-number">Κάρτα 01</div>
+          <h3>Επινοημένες πηγές</h3>
+          <div class="back-section">
+            <span class="back-label label-example">Παράδειγμα</span>
+            <p>Ένα AI εργαλείο αναφέρει:</p>
+            <p class="example-quote">"Σύμφωνα με μελέτη του Πανεπιστημίου Cambridge (Smith & Johnson, 2021)..."</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-reality">Στην πραγματικότητα</span>
+            <p>Η μελέτη δεν υπάρχει. Οι ερευνητές δεν υπάρχουν. Το AI παρήγαγε αληθοφανείς αναφορές βάσει στατιστικών προτύπων.</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
+            <p>Όταν το AI δίνει συγκεκριμένα ονόματα, ημερομηνίες και τίτλους — πάντα επαλήθευσέ τα.</p>
+          </div>
+          <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ΚΑΡΤΑ 2 -->
+    <div class="card-wrapper">
+      <div class="card" data-card="2">
+        <div class="card-face card-front blue">
+          <div>
+            <div class="card-number">Κάρτα 02</div>
+            <h2 class="card-title">Ξεπερασμένες πληροφορίες</h2>
+            <p class="card-subtitle">Τα AI εργαλεία έχουν "ημερομηνία λήξης" στις γνώσεις τους — δεν γνωρίζουν τι έχει αλλάξει μετά.</p>
+          </div>
+          <span class="flip-hint">Πάτησε για παράδειγμα</span>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-number">Κάρτα 02</div>
+          <h3>Ξεπερασμένες πληροφορίες</h3>
+          <div class="back-section">
+            <span class="back-label label-example">Παράδειγμα</span>
+            <p>Ρωτάς το AI:</p>
+            <p class="example-quote">"Ποιο είναι το όριο αφορολόγητου για το 2025;"<br>Το AI απαντά: "Το αφορολόγητο είναι 8.636€..."</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-reality">Στην πραγματικότητα</span>
+            <p>Η εκπαίδευση του μοντέλου μπορεί να σταμάτησε το 2023 — και έκτοτε το όριο έχει αλλάξει.</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
+            <p>Νόμοι, τιμές, ποσοστά, ονόματα στελεχών, πρόσφατα γεγονότα — όλα αυτά απαιτούν επαλήθευση σε ενημερωμένες πηγές.</p>
+          </div>
+          <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ΚΑΡΤΑ 3 -->
+    <div class="card-wrapper">
+      <div class="card" data-card="3">
+        <div class="card-face card-front green">
+          <div>
+            <div class="card-number">Κάρτα 03</div>
+            <h2 class="card-title">Λάθη σε αριθμούς</h2>
+            <p class="card-subtitle">Το AI δυσκολεύεται με ακριβείς υπολογισμούς, ποσοστά και αριθμητικά δεδομένα.</p>
+          </div>
+          <span class="flip-hint">Πάτησε για παράδειγμα</span>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-number">Κάρτα 03</div>
+          <h3>Λάθη σε αριθμούς & στατιστικά</h3>
+          <div class="back-section">
+            <span class="back-label label-example">Παράδειγμα</span>
+            <p>Ρωτάς:</p>
+            <p class="example-quote">"Πόσος είναι ο πληθυσμός της Αθήνας;"<br>Το AI απαντά: "Η Αθήνα έχει πληθυσμό 3.154.591 κατοίκους σύμφωνα με την απογραφή του 2021."</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-reality">Στην πραγματικότητα</span>
+            <p>Ο πραγματικός αριθμός μπορεί να είναι εντελώς διαφορετικός. Το AI παρήγαγε έναν "λογικό" αριθμό βάσει στατιστικών προτύπων — όχι βάσει πραγματικών δεδομένων.</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
+            <p>Συγκεκριμένοι αριθμοί, στατιστικά, μετρήσεις — πάντα διασταυρώνονται με επίσημες πηγές (π.χ. ΕΛΣΤΑΤ, Eurostat).</p>
+          </div>
+          <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ΚΑΡΤΑ 4 -->
+    <div class="card-wrapper">
+      <div class="card" data-card="4">
+        <div class="card-face card-front yellow">
+          <div>
+            <div class="card-number">Κάρτα 04</div>
+            <h2 class="card-title">Υπερβολική σιγουριά</h2>
+            <p class="card-subtitle">Το AI παρουσιάζει με την ίδια σιγουριά και σωστές και λανθασμένες απαντήσεις.</p>
+          </div>
+          <span class="flip-hint">Πάτησε για παράδειγμα</span>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-number">Κάρτα 04</div>
+          <h3>Υπερβολική σιγουριά</h3>
+          <div class="back-section">
+            <span class="back-label label-example">Παράδειγμα</span>
+            <p>Όταν το AI δεν γνωρίζει κάτι, σπάνια θα πει "δεν ξέρω". Αντί γι' αυτό, παράγει μια αληθοφανή απάντηση με τόνο σιγουριάς.</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-reality">Στην πραγματικότητα</span>
+            <p>Το επαγγελματικό, σίγουρο ύφος μιας απάντησης ΔΕΝ είναι ένδειξη ακρίβειας. Είναι απλώς το στυλ γραφής του μοντέλου.</p>
+          </div>
+          <div class="back-section">
+            <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
+            <p>Μην εμπιστεύεσαι το ύφος. Εμπιστεύσου την επαλήθευση. Όσο πιο σίγουρο ακούγεται το AI σε ένα θέμα ειδίκευσης, τόσο πιο προσεκτική επαλήθευση χρειάζεται.</p>
+          </div>
+          <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="summary" id="summary">
+    <h2>τα <span style="background:#FF9CB8; padding:0 8px;">βασικά</span> που πρέπει να θυμάσαι</h2>
+    <div class="summary-list">
+      <div class="summary-item">Τα AI δεν "ξέρουν" αν κάτι είναι αληθινό — προβλέπουν στατιστικά</div>
+      <div class="summary-item">Το hallucination είναι επινοημένη αλλά αληθοφανής πληροφορία</div>
+      <div class="summary-item">Υπάρχουν 4 βασικές κατηγορίες σφαλμάτων που μόλις είδες</div>
+      <div class="summary-item">Το σίγουρο ύφος δεν είναι ένδειξη σωστής απάντησης</div>
+    </div>
+    <button class="btn"><span class="dot"></span> Πάμε στην εξάσκηση →</button>
+  </div>
+</div>
+
+<script>
+  const viewedCards = new Set();
+  const progress = document.getElementById('progress');
+  const summary = document.getElementById('summary');
+  
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('back-close')) return;
+      this.classList.toggle('flipped');
+      
+      const cardNum = this.dataset.card;
+      if (this.classList.contains('flipped') && !viewedCards.has(cardNum)) {
+        viewedCards.add(cardNum);
+        updateProgress();
+      }
+    });
+  });
+  
+  function updateProgress() {
+    const pct = (viewedCards.size / 4) * 100;
+    progress.style.width = pct + '%';
+    progress.textContent = viewedCards.size + ' / 4 κάρτες';
+    
+    if (viewedCards.size === 4) {
+      setTimeout(() => {
+        summary.classList.add('show');
+        summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 600);
+    }
+  }
+</script>
+
+</body>
+</html>

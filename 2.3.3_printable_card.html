@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ο Οδηγός μου — Εκτυπώσιμη Κάρτα</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 720px; margin: 0 auto; }
+
+.intro { text-align: center; margin-bottom: 30px; }
+.intro-pill { display: inline-block; background: #B5D89F; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.intro h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 42px; line-height: 1; margin-bottom: 10px; }
+.intro h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.intro p { color: #555; font-size: 15px; max-width: 480px; margin: 0 auto; }
+
+/* PRINTABLE CARD */
+.card { background: #fff; border: 3px solid #1A1A1A; border-radius: 20px; padding: 40px 36px; box-shadow: 8px 8px 0 #1A1A1A; margin-bottom: 30px; position: relative; }
+
+.card-header { text-align: center; padding-bottom: 24px; border-bottom: 2px dashed #1A1A1A; margin-bottom: 24px; }
+.card-tagline { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #FF9CB8; margin-bottom: 8px; }
+.card-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 36px; line-height: 1.1; }
+.card-title .highlight { background: #FFE566; padding: 0 8px; }
+
+.steps-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+
+.step-row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 12px; }
+.step-checkbox { width: 28px; height: 28px; border: 2px solid #1A1A1A; border-radius: 6px; background: #fff; flex-shrink: 0; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 20px; color: transparent; }
+.step-checkbox.checked { background: #C8E2B5; color: #1A1A1A; }
+.step-checkbox::after { content: "✓"; }
+
+.step-row .step-content { flex-grow: 1; }
+.step-row .step-num { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 13px; background: #1A1A1A; color: #FFE566; padding: 2px 10px; border-radius: 100px; display: inline-block; margin-bottom: 6px; }
+.step-row .step-text { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.step-row .step-hint { font-size: 12px; color: #555; font-style: italic; }
+
+.results-section { margin-bottom: 20px; }
+.results-section h3 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px; text-align: center; margin-bottom: 12px; }
+.results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.result-pill { padding: 12px 10px; border: 2px solid #1A1A1A; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 600; line-height: 1.3; }
+.pill-green { background: #C8E2B5; }
+.pill-yellow { background: #FFEC8B; }
+.pill-red { background: #FFD5DF; }
+
+.golden-rule { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 14px; padding: 16px 20px; text-align: center; }
+.gr-label { display: inline-block; background: #1A1A1A; color: #FFE566; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; margin-bottom: 8px; text-transform: uppercase; }
+.golden-rule p { font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* ACTIONS */
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+.btn { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover { background: #1A1A1A; color: #fff; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.btn-primary { background: #FF9CB8; }
+.btn-primary:hover { background: #1A1A1A; color: #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+
+.next-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 4px 4px 0 #1A1A1A; }
+.next-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 26px; margin-bottom: 12px; }
+.next-card p { color: #555; font-size: 14px; margin-bottom: 18px; }
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .intro, .actions, .next-card { display: none; }
+  .card { box-shadow: none; border: 2px solid #1A1A1A; page-break-inside: avoid; }
+}
+
+@media (max-width: 640px) {
+  .intro h1, .card-title { font-size: 28px; }
+  .results-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="intro">
+    <div class="intro-pill">2.3.3 · Εκτυπώσιμη Κάρτα Σύνοψης</div>
+    <h1>ο <span class="highlight">οδηγός μου</span></h1>
+    <p>Κράτησέ τον πάντα κοντά σου. Εκτύπωσέ τον ή αποθήκευσέ τον σαν PDF.</p>
+  </div>
+  
+  <!-- THE PRINTABLE CARD -->
+  <div class="card" id="printable-card">
+    <div class="card-header">
+      <div class="card-tagline">Εμπιστεύομαι το AI;</div>
+      <h2 class="card-title">οδηγός <span class="highlight">5 βημάτων</span><br>ελέγχου AI απαντήσεων</h2>
+    </div>
+    
+    <div class="steps-list">
+      <div class="step-row">
+        <div class="step-checkbox" onclick="this.classList.toggle('checked')"></div>
+        <div class="step-content">
+          <span class="step-num">Βήμα 01</span>
+          <div class="step-text">Εντόπισα τα ελέγξιμα στοιχεία</div>
+          <div class="step-hint">Ονόματα, ημερομηνίες, αριθμούς, τίτλους μελετών, νόμους</div>
+        </div>
+      </div>
+      
+      <div class="step-row">
+        <div class="step-checkbox" onclick="this.classList.toggle('checked')"></div>
+        <div class="step-content">
+          <span class="step-num">Βήμα 02</span>
+          <div class="step-text">Έλεγξα τις πηγές</div>
+          <div class="step-hint">Google Scholar, gov.gr, ΕΛΣΤΑΤ, ΕΟΦ, Eurostat</div>
+        </div>
+      </div>
+      
+      <div class="step-row">
+        <div class="step-checkbox" onclick="this.classList.toggle('checked')"></div>
+        <div class="step-content">
+          <span class="step-num">Βήμα 03</span>
+          <div class="step-text">Έλεγξα την ημερομηνία</div>
+          <div class="step-hint">Μπορεί η πληροφορία να έχει αλλάξει από τότε;</div>
+        </div>
+      </div>
+      
+      <div class="step-row">
+        <div class="step-checkbox" onclick="this.classList.toggle('checked')"></div>
+        <div class="step-content">
+          <span class="step-num">Βήμα 04</span>
+          <div class="step-text">Επαλήθευσα σε 2 ανεξάρτητες πηγές</div>
+          <div class="step-hint">Όχι άλλα AI, όχι forums, όχι social media</div>
+        </div>
+      </div>
+      
+      <div class="step-row">
+        <div class="step-checkbox" onclick="this.classList.toggle('checked')"></div>
+        <div class="step-content">
+          <span class="step-num">Βήμα 05</span>
+          <div class="step-text">Αξιολόγησα το αποτέλεσμα</div>
+          <div class="step-hint">Πλήρης / Μερική / Μη επαλήθευση → απόφαση</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="results-section">
+      <h3>πώς αξιολογώ το αποτέλεσμα</h3>
+      <div class="results-grid">
+        <div class="result-pill pill-green"><strong>Πλήρης</strong><br>Χρήση με σιγουριά</div>
+        <div class="result-pill pill-yellow"><strong>Μερική</strong><br>Χρήση με επιφύλαξη</div>
+        <div class="result-pill pill-red"><strong>Μη επαλήθευση</strong><br>Απόρριψη</div>
+      </div>
+    </div>
+    
+    <div class="golden-rule">
+      <span class="gr-label">Χρυσός κανόνας</span>
+      <p>Υγεία, νομικά, οικονομικά<br>→ πάντα ρώτα ειδικό</p>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <button class="btn" onclick="window.print()"><span class="dot"></span> Εκτύπωση</button>
+    <button class="btn btn-primary" onclick="window.print()"><span class="dot"></span> Αποθήκευση ως PDF</button>
+  </div>
+  
+  <div class="next-card">
+    <h2>έτοιμη/ος για εξάσκηση;</h2>
+    <p>Στην επόμενη ενότητα θα εφαρμόσεις τον οδηγό σε 3 πραγματικά σενάρια.</p>
+    <button class="btn btn-primary"><span class="dot"></span> Πάμε στην εξάσκηση →</button>
+  </div>
+</div>
+
+</body>
+</html>

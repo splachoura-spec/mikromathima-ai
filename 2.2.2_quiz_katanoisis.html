@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Εξάσκηση Κατανόησης — Quiz με Σενάρια</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 760px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 40px; }
+.header-pill { display: inline-block; background: #FFD5DF; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; color: #1A1A1A; }
+.header-sub { font-size: 15px; color: #555; max-width: 520px; margin: 0 auto; }
+.progress-wrap { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 4px; margin: 30px auto; max-width: 400px; }
+.progress-bar { background: #FF9CB8; height: 24px; border-radius: 100px; width: 33%; transition: width 0.5s ease; display: flex; align-items: center; justify-content: center; color: #1A1A1A; font-size: 12px; font-weight: 700; }
+.instructions { background: #FFEC8B; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 20px; margin-bottom: 24px; font-size: 13px; text-align: center; }
+.question-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 32px; margin-bottom: 24px; box-shadow: 6px 6px 0 #1A1A1A; }
+.question-num { display: inline-block; background: #1A1A1A; color: #FFE566; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px; padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+.question-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; line-height: 1.2; margin-bottom: 16px; }
+.scenario-box { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px; line-height: 1.6; }
+.scenario-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; text-transform: uppercase; }
+.ai-quote { background: #fff; border-left: 3px solid #FF9CB8; padding: 12px 14px; margin-top: 10px; font-style: italic; border-radius: 4px; }
+.question-text { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 18px; cursor: pointer; font-size: 14px; font-weight: 500; text-align: left; font-family: inherit; transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px; line-height: 1.4; }
+.option:hover:not(:disabled) { background: #FFE566; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #1A1A1A; }
+.option-letter { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 2px solid #1A1A1A; width: 32px; height: 32px; border-radius: 50%; font-weight: 700; flex-shrink: 0; font-family: 'DM Serif Display', serif; font-style: italic; }
+.option.selected.correct { background: #C8E2B5; }
+.option.selected.wrong { background: #FFD5DF; }
+.option:disabled { cursor: default; }
+.feedback { margin-top: 16px; padding: 16px 18px; border-radius: 14px; border: 2px solid #1A1A1A; font-size: 14px; line-height: 1.5; display: none; animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.feedback.show { display: block; }
+.feedback.correct { background: #C8E2B5; }
+.feedback.wrong { background: #FFD5DF; }
+.feedback-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; background: #1A1A1A; color: #fff; margin-bottom: 8px; }
+.guidance { margin-top: 12px; padding: 14px 18px; border-radius: 14px; border: 2px solid #1A1A1A; font-size: 13px; line-height: 1.5; background: #FFEC8B; display: none; animation: slideIn 0.3s ease; }
+.guidance.show { display: block; }
+.guidance-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; background: #FF9CB8; color: #1A1A1A; margin-bottom: 8px; border: 1.5px solid #1A1A1A; }
+.try-again { margin-top: 12px; }
+.btn-tryagain { background: #B8DDE8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 8px 18px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+.btn-tryagain:hover { background: #1A1A1A; color: #fff; }
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
+.btn { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover:not(:disabled) { background: #1A1A1A; color: #fff; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-primary { background: #FF9CB8; }
+.btn-primary:hover:not(:disabled) { background: #1A1A1A; color: #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+.completion { display: none; text-align: center; background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 48px 32px; box-shadow: 6px 6px 0 #1A1A1A; }
+.completion.show { display: block; }
+.completion h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 36px; line-height: 1.1; margin-bottom: 16px; }
+.completion p { color: #555; margin-bottom: 24px; font-size: 16px; max-width: 480px; margin: 0 auto 24px; }
+@media (max-width: 640px) { .header h1 { font-size: 32px; } .question-title { font-size: 20px; } .question-card { padding: 22px; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">2.2 · Εξάσκηση Κατανόησης · ΜΑ-1</div>
+    <h1>quiz με <span class="highlight">σενάρια</span></h1>
+    <p class="header-sub">Αναγνώρισε τι είδους σφάλμα AI εμφανίζεται σε κάθε σενάριο.</p>
+  </div>
+  
+  <div class="instructions">
+    Αυτοαξιολόγηση — απεριόριστες προσπάθειες, δεν προσμετράται στον τελικό βαθμό. Αν απαντήσεις λάθος, θα λάβεις Καθοδήγηση 2 επιπέδων.
+  </div>
+  
+  <div class="progress-wrap"><div class="progress-bar" id="progress">1 / 3</div></div>
+  
+  <div id="quiz-area">
+  
+  <!-- ΕΡΩΤΗΣΗ 1 -->
+  <div class="question-card" data-q="1">
+    <div class="question-num">Q1</div>
+    <h2 class="question-title">Επινοημένες πηγές ή κάτι άλλο;</h2>
+    <div class="scenario-box">
+      <span class="scenario-label">Σενάριο</span>
+      <p>Ένας φοιτητής ρωτά το ChatGPT για την εργασία του στη Φιλοσοφία: <em>«Ποιοι είναι οι κύριοι κριτικοί της φιλοσοφίας του Καντ;»</em></p>
+      <div class="ai-quote">
+        «Σημαντικοί κριτικοί του Καντ είναι: ο Friedrich Schulze στο βιβλίο του "Aenesidemus" (1792), ο Maimon Solomon στο "Versuch über die Transzendentalphilosophie" (1790) και η σύγχρονη μελέτη της Anna Müller "Kant Reconsidered" (Oxford University Press, 2019).»
+      </div>
+    </div>
+    <p class="question-text">Ποιο είδος σφάλματος είναι πιθανότερο να εμφανίζεται σε αυτή την απάντηση;</p>
+    <div class="options">
+      <button class="option" data-correct="false" data-key="a"><span class="option-letter">α</span>Ξεπερασμένες πληροφορίες</button>
+      <button class="option" data-correct="true" data-key="b"><span class="option-letter">β</span>Επινοημένες πηγές</button>
+      <button class="option" data-correct="false" data-key="c"><span class="option-letter">γ</span>Λάθη σε αριθμούς</button>
+      <button class="option" data-correct="false" data-key="d"><span class="option-letter">δ</span>Δεν υπάρχει σφάλμα — η απάντηση είναι σωστή</button>
+    </div>
+    <div class="feedback wrong" data-fb="a">
+      <span class="feedback-label">Λάθος</span>
+      <p>Όχι ακριβώς. Οι ξεπερασμένες πληροφορίες αφορούν θέματα που έχουν αλλάξει με τον χρόνο (νόμοι, τιμές). Εδώ το πρόβλημα είναι διαφορετικό — σκέψου τι συμβαίνει όταν το AI αναφέρει συγκεκριμένα βιβλία και ερευνητές.</p>
+    </div>
+    <div class="feedback correct" data-fb="b">
+      <span class="feedback-label">Σωστά</span>
+      <p>Όταν ένα AI αναφέρει συγκεκριμένες πηγές (βιβλία, μελέτες, συγγραφείς, ημερομηνίες) με τόση λεπτομέρεια, υπάρχει σοβαρός κίνδυνος να είναι <strong>επινοημένες</strong>. Το AI παράγει αληθοφανείς αναφορές βάσει στατιστικών προτύπων — όχι βάσει πραγματικών πηγών.</p>
+    </div>
+    <div class="feedback wrong" data-fb="c">
+      <span class="feedback-label">Λάθος</span>
+      <p>Τα λάθη σε αριθμούς αφορούν στατιστικά, ποσοστά, μετρήσεις. Εδώ το πρόβλημα είναι διαφορετικό — αφορά τη φύση των ίδιων των πηγών που αναφέρονται.</p>
+    </div>
+    <div class="feedback wrong" data-fb="d">
+      <span class="feedback-label">Λάθος</span>
+      <p>Προσοχή — αυτή είναι ακριβώς η παγίδα. Η απάντηση μοιάζει επιστημονικά τεκμηριωμένη, αλλά οι συγκεκριμένες αναφορές μπορεί να είναι πλήρως επινοημένες.</p>
+    </div>
+    <div class="guidance" data-level="1">
+      <span class="guidance-label">Καθοδήγηση 01</span>
+      <p>Παρατήρησε τη φύση της απάντησης. Αναφέρει συγκεκριμένα ονόματα, τίτλους και ημερομηνίες. Ποια κατηγορία σφαλμάτων σχετίζεται με αναφορές σε πηγές;</p>
+    </div>
+    <div class="guidance" data-level="2">
+      <span class="guidance-label">Καθοδήγηση 02</span>
+      <p>Επιστροφή στην <strong>Κάρτα 01 — Επινοημένες Πηγές</strong> (Δραστηριότητα 2.1.3). Το AI συχνά παράγει αναφορές που μοιάζουν ακαδημαϊκά τεκμηριωμένες αλλά είναι πλήρως επινοημένες.</p>
+    </div>
+    <div class="try-again" style="display:none;">
+      <button class="btn-tryagain">Δοκίμασε ξανά</button>
+    </div>
+  </div>
+  
+  <!-- ΕΡΩΤΗΣΗ 2 -->
+  <div class="question-card" data-q="2" style="display:none;">
+    <div class="question-num">Q2</div>
+    <h2 class="question-title">Ποσοστό ΦΠΑ — τι θα προσέξεις;</h2>
+    <div class="scenario-box">
+      <span class="scenario-label">Σενάριο</span>
+      <p>Μια επιχειρηματίας ρωτά το Gemini: <em>«Ποιο είναι το ποσοστό του ΦΠΑ για υπηρεσίες εστίασης στην Ελλάδα;»</em></p>
+      <div class="ai-quote">
+        «Το ποσοστό του ΦΠΑ για υπηρεσίες εστίασης στην Ελλάδα είναι 13%, μειωμένο από το προηγούμενο 24% στο πλαίσιο των μέτρων στήριξης της εστίασης.»
+      </div>
+    </div>
+    <p class="question-text">Ποιο είδος σφάλματος είναι πιθανότερο να εμφανίζεται;</p>
+    <div class="options">
+      <button class="option" data-correct="false" data-key="a"><span class="option-letter">α</span>Επινοημένες πηγές</button>
+      <button class="option" data-correct="false" data-key="b"><span class="option-letter">β</span>Υπερβολική σιγουριά</button>
+      <button class="option" data-correct="true" data-key="c"><span class="option-letter">γ</span>Ξεπερασμένες πληροφορίες</button>
+      <button class="option" data-correct="false" data-key="d"><span class="option-letter">δ</span>Λάθη σε αριθμούς</button>
+    </div>
+    <div class="feedback wrong" data-fb="a">
+      <span class="feedback-label">Λάθος</span>
+      <p>Η απάντηση δεν αναφέρει συγκεκριμένες μελέτες ή πηγές. Σκέψου ποια κατηγορία σχετίζεται με νόμους και ρυθμίσεις που μπορεί να έχουν αλλάξει.</p>
+    </div>
+    <div class="feedback wrong" data-fb="b">
+      <span class="feedback-label">Λάθος</span>
+      <p>Η απάντηση όντως ακούγεται σίγουρη — αλλά το βασικό πρόβλημα εδώ είναι διαφορετικό. Σκέψου ότι οι ρυθμίσεις ΦΠΑ αλλάζουν συχνά.</p>
+    </div>
+    <div class="feedback correct" data-fb="c">
+      <span class="feedback-label">Σωστά</span>
+      <p>Τα ποσοστά ΦΠΑ, οι φορολογικές ρυθμίσεις και η νομοθεσία αλλάζουν συχνά. Το AI μπορεί να σου δώσει ένα ποσοστό που ίσχυε όταν εκπαιδεύτηκε το μοντέλο — αλλά όχι σήμερα. Πάντα επαλήθευσε σε επίσημες πηγές (gov.gr, ΑΑΔΕ).</p>
+    </div>
+    <div class="feedback wrong" data-fb="d">
+      <span class="feedback-label">Λάθος</span>
+      <p>Το πρόβλημα δεν είναι ότι το AI έκανε λάθος υπολογισμό, αλλά ότι το νούμερο μπορεί να μην ισχύει πια.</p>
+    </div>
+    <div class="guidance" data-level="1">
+      <span class="guidance-label">Καθοδήγηση 01</span>
+      <p>Σκέψου τη φύση των φορολογικών πληροφοριών — είναι σταθερές με τον χρόνο ή αλλάζουν συχνά; Ποιο είδος σφάλματος εμφανίζεται όταν το AI δίνει πληροφορίες που ίσχυαν παλιά αλλά όχι σήμερα;</p>
+    </div>
+    <div class="guidance" data-level="2">
+      <span class="guidance-label">Καθοδήγηση 02</span>
+      <p>Επιστροφή στην <strong>Κάρτα 02 — Ξεπερασμένες Πληροφορίες</strong> (Δραστηριότητα 2.1.3). Νόμοι, ποσοστά, φορολογικές ρυθμίσεις — όλα απαιτούν επαλήθευση σε επίσημες ενημερωμένες πηγές.</p>
+    </div>
+    <div class="try-again" style="display:none;">
+      <button class="btn-tryagain">Δοκίμασε ξανά</button>
+    </div>
+  </div>
+  
+  <!-- ΕΡΩΤΗΣΗ 3 -->
+  <div class="question-card" data-q="3" style="display:none;">
+    <div class="question-num">Q3</div>
+    <h2 class="question-title">Νομική απάντηση με απόλυτο ύφος</h2>
+    <div class="scenario-box">
+      <span class="scenario-label">Σενάριο</span>
+      <p>Ένας φοιτητής νομικής ρωτά το ChatGPT για ένα δύσκολο νομικό ζήτημα. Το AI απαντά με μακροσκελή, τεχνικά διατυπωμένη απάντηση γεμάτη νομική ορολογία.</p>
+      <div class="ai-quote">
+        «Η ερμηνεία αυτή είναι αδιαμφισβήτητη και αποτελεί την κρατούσα άποψη στη νομολογία.»
+      </div>
+    </div>
+    <p class="question-text">Ποιο είδος σφάλματος θα πρέπει να σε προβληματίσει περισσότερο εδώ;</p>
+    <div class="options">
+      <button class="option" data-correct="false" data-key="a"><span class="option-letter">α</span>Επινοημένες πηγές</button>
+      <button class="option" data-correct="true" data-key="b"><span class="option-letter">β</span>Υπερβολική σιγουριά</button>
+      <button class="option" data-correct="false" data-key="c"><span class="option-letter">γ</span>Ξεπερασμένες πληροφορίες</button>
+      <button class="option" data-correct="false" data-key="d"><span class="option-letter">δ</span>Λάθη σε αριθμούς</button>
+    </div>
+    <div class="feedback wrong" data-fb="a">
+      <span class="feedback-label">Λάθος</span>
+      <p>Αν και το AI θα μπορούσε να αναφέρει επινοημένες αποφάσεις, το σενάριο δεν αναφέρει συγκεκριμένες πηγές. Σκέψου το ύφος της απάντησης.</p>
+    </div>
+    <div class="feedback correct" data-fb="b">
+      <span class="feedback-label">Σωστά</span>
+      <p>Όταν ένα AI παρουσιάζει μια <strong>νομική ερμηνεία ως "αδιαμφισβήτητη"</strong>, αυτό είναι κόκκινη σημαία. Στη νομική επιστήμη σχεδόν τίποτα δεν είναι αδιαμφισβήτητο. Το AI χρησιμοποιεί απόλυτο τόνο επειδή έτσι παράγει κείμενο — όχι επειδή πραγματικά "ξέρει" ότι είναι σωστό.</p>
+    </div>
+    <div class="feedback wrong" data-fb="c">
+      <span class="feedback-label">Λάθος</span>
+      <p>Σωστή σκέψη ότι οι νόμοι αλλάζουν, αλλά το βασικό πρόβλημα εδώ είναι διαφορετικό. Παρατήρησε τον τόνο της απάντησης.</p>
+    </div>
+    <div class="feedback wrong" data-fb="d">
+      <span class="feedback-label">Λάθος</span>
+      <p>Δεν εμφανίζονται αριθμοί στο σενάριο. Σκέψου το ύφος της απάντησης.</p>
+    </div>
+    <div class="guidance" data-level="1">
+      <span class="guidance-label">Καθοδήγηση 01</span>
+      <p>Δώσε προσοχή στη φράση <em>"αδιαμφισβήτητη"</em> και <em>"κρατούσα άποψη"</em>. Τι σου λέει αυτό για το ύφος της απάντησης;</p>
+    </div>
+    <div class="guidance" data-level="2">
+      <span class="guidance-label">Καθοδήγηση 02</span>
+      <p>Επιστροφή στην <strong>Κάρτα 04 — Υπερβολική Σιγουριά</strong> (Δραστηριότητα 2.1.3). Το AI δεν λέει σχεδόν ποτέ "δεν ξέρω". Το επαγγελματικό, σίγουρο ύφος ΔΕΝ είναι ένδειξη ακρίβειας.</p>
+    </div>
+    <div class="try-again" style="display:none;">
+      <button class="btn-tryagain">Δοκίμασε ξανά</button>
+    </div>
+  </div>
+  
+  <div class="nav-buttons">
+    <button class="btn" id="btn-prev" disabled>← Προηγούμενη</button>
+    <button class="btn btn-primary" id="btn-next" disabled><span class="dot"></span> Επόμενη →</button>
+  </div>
+  </div>
+  
+  <div class="completion" id="completion">
+    <h2>μπράβο — ολοκλήρωσες <span style="background:#FF9CB8; padding:0 8px;">την εξάσκηση</span></h2>
+    <p>Τώρα μπορείς να αναγνωρίζεις τις 4 βασικές κατηγορίες σφαλμάτων AI σε πραγματικά σενάρια. Αυτό είναι ένα σημαντικό πρώτο βήμα.</p>
+    <p>Αλλά η αναγνώριση δεν αρκεί. Στην επόμενη ενότητα θα μάθεις <strong>πώς ακριβώς να ελέγχεις</strong> μια AI απάντηση — με έναν πρακτικό οδηγό 5 βημάτων.</p>
+    <button class="btn btn-primary"><span class="dot"></span> Επόμενη ενότητα →</button>
+  </div>
+</div>
+
+<script>
+let currentQ = 1;
+const totalQ = 3;
+const completed = {};
+const wrongAttempts = {};
+
+const progressBar = document.getElementById('progress');
+const btnNext = document.getElementById('btn-next');
+const btnPrev = document.getElementById('btn-prev');
+
+function updateProgress() {
+  const pct = (currentQ / totalQ) * 100;
+  progressBar.style.width = pct + '%';
+  progressBar.textContent = currentQ + ' / ' + totalQ;
+}
+
+function showQuestion(num) {
+  document.querySelectorAll('.question-card').forEach(card => {
+    card.style.display = card.dataset.q == num ? 'block' : 'none';
+  });
+  btnPrev.disabled = num === 1;
+  btnNext.disabled = !completed[num];
+  btnNext.innerHTML = num === totalQ ? '<span class="dot"></span> Ολοκλήρωση →' : '<span class="dot"></span> Επόμενη →';
+  updateProgress();
+}
+
+function resetQuestion(card) {
+  card.querySelectorAll('.option').forEach(o => {
+    o.classList.remove('selected', 'correct', 'wrong');
+    o.disabled = false;
+  });
+  card.querySelectorAll('.feedback').forEach(fb => fb.classList.remove('show'));
+  card.querySelector('.try-again').style.display = 'none';
+}
+
+document.querySelectorAll('.option').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const card = this.closest('.question-card');
+    const qNum = card.dataset.q;
+    const isCorrect = this.dataset.correct === 'true';
+    const fbKey = this.dataset.key;
+    
+    card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected', isCorrect ? 'correct' : 'wrong');
+    card.querySelectorAll('.option').forEach(o => o.disabled = true);
+    
+    card.querySelectorAll('.feedback').forEach(fb => fb.classList.remove('show'));
+    const fb = card.querySelector('.feedback[data-fb="' + fbKey + '"]');
+    if (fb) fb.classList.add('show');
+    
+    if (isCorrect) {
+      completed[qNum] = true;
+      btnNext.disabled = false;
+      card.querySelectorAll('.guidance').forEach(g => g.classList.remove('show'));
+      card.querySelector('.try-again').style.display = 'none';
+    } else {
+      wrongAttempts[qNum] = (wrongAttempts[qNum] || 0) + 1;
+      const guidanceLevel = Math.min(wrongAttempts[qNum], 2);
+      const guidance = card.querySelector('.guidance[data-level="' + guidanceLevel + '"]');
+      if (guidance) {
+        // Hide previous guidances
+        card.querySelectorAll('.guidance').forEach(g => g.classList.remove('show'));
+        setTimeout(() => guidance.classList.add('show'), 200);
+      }
+      card.querySelector('.try-again').style.display = 'block';
+    }
+  });
+});
+
+document.querySelectorAll('.btn-tryagain').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const card = this.closest('.question-card');
+    card.querySelectorAll('.option').forEach(o => {
+      o.classList.remove('selected', 'correct', 'wrong');
+      o.disabled = false;
+    });
+    card.querySelectorAll('.feedback').forEach(fb => fb.classList.remove('show'));
+    // Keep guidance visible
+    this.closest('.try-again').style.display = 'none';
+  });
+});
+
+btnNext.addEventListener('click', () => {
+  if (currentQ === totalQ) {
+    document.getElementById('quiz-area').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.instructions').style.display = 'none';
+    document.getElementById('completion').classList.add('show');
+  } else {
+    currentQ++;
+    showQuestion(currentQ);
+  }
+});
+
+btnPrev.addEventListener('click', () => {
+  if (currentQ > 1) {
+    currentQ--;
+    showQuestion(currentQ);
+  }
+});
+
+updateProgress();
+</script>
+</body>
+</html>

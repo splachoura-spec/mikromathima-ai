@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Δομή του Μικρομαθήματος</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 820px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #FFE566; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; border: 1.5px solid #1A1A1A; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.header-sub { font-size: 15px; color: #555; max-width: 520px; margin: 0 auto; }
+.timeline { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 32px; box-shadow: 6px 6px 0 #1A1A1A; margin-bottom: 24px; }
+.section { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1.5px dashed #E0E0E0; align-items: center; }
+.section:last-child { border-bottom: none; }
+.sec-num { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; background: #FF9CB8; color: #1A1A1A; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid #1A1A1A; }
+.sec-info { flex-grow: 1; }
+.sec-name { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px; margin-bottom: 2px; }
+.sec-desc { font-size: 13px; color: #555; }
+.sec-time { background: #FFE566; border: 1.5px solid #1A1A1A; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+.cert-box { background: #C8E2B5; border: 2px solid #1A1A1A; border-radius: 16px; padding: 20px 24px; text-align: center; margin-bottom: 24px; }
+.cert-label { display: inline-block; background: #1A1A1A; color: #FFE566; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 100px; margin-bottom: 10px; text-transform: uppercase; }
+.cert-box p { font-size: 15px; line-height: 1.5; }
+.cert-box strong { background: #FFE566; padding: 0 6px; }
+.next-section { text-align: center; }
+.btn { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 14px 28px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover { background: #1A1A1A; color: #FF9CB8; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+@media (max-width: 640px) { .header h1 { font-size: 32px; } .sec-num { width: 36px; height: 36px; font-size: 16px; } .sec-name { font-size: 16px; } .sec-time { font-size: 10px; padding: 3px 8px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-pill">1.1.3 · Δομή Μικρομαθήματος</div>
+    <h1>πώς <span class="highlight">θα μάθεις</span></h1>
+    <p class="header-sub">Το μικρομάθημα αποτελείται από 6 ενότητες συνολικής διάρκειας 1,5 ώρας.</p>
+  </div>
+  <div class="timeline">
+    <div class="section">
+      <div class="sec-num">1</div>
+      <div class="sec-info">
+        <div class="sec-name">Εισαγωγή</div>
+        <div class="sec-desc">Γνωριμία με το θέμα + διαγνωστικό pre-test</div>
+      </div>
+      <div class="sec-time">15'</div>
+    </div>
+    <div class="section">
+      <div class="sec-num">2</div>
+      <div class="sec-info">
+        <div class="sec-name">Παρουσίαση Εννοιών</div>
+        <div class="sec-desc">Πώς λειτουργούν τα AI εργαλεία & τι είναι το hallucination</div>
+      </div>
+      <div class="sec-time">15'</div>
+    </div>
+    <div class="section">
+      <div class="sec-num">3</div>
+      <div class="sec-info">
+        <div class="sec-name">Εξάσκηση Κατανόησης</div>
+        <div class="sec-desc">Quiz με σενάρια & ανατροφοδότηση</div>
+      </div>
+      <div class="sec-time">15'</div>
+    </div>
+    <div class="section">
+      <div class="sec-num">4</div>
+      <div class="sec-info">
+        <div class="sec-name">Επίδειξη Δεξιότητας</div>
+        <div class="sec-desc">Οδηγός 5 βημάτων ελέγχου AI απαντήσεων</div>
+      </div>
+      <div class="sec-time">15'</div>
+    </div>
+    <div class="section">
+      <div class="sec-num">5</div>
+      <div class="sec-info">
+        <div class="sec-name">Εξάσκηση Δεξιότητας</div>
+        <div class="sec-desc">Πραγματικά σενάρια χρήσης AI</div>
+      </div>
+      <div class="sec-time">15'</div>
+    </div>
+    <div class="section">
+      <div class="sec-num">6</div>
+      <div class="sec-info">
+        <div class="sec-name">Τελική Αξιολόγηση</div>
+        <div class="sec-desc">10 ερωτήσεις · όριο επιτυχίας 80% · έως 3 προσπάθειες</div>
+      </div>
+      <div class="sec-time">15'</div>
+    </div>
+  </div>
+  <div class="cert-box">
+    <div class="cert-label">Πιστοποίηση</div>
+    <p>Με την επιτυχή ολοκλήρωση της τελικής αξιολόγησης <strong>(≥80%)</strong> θα λάβεις πιστοποιητικό ολοκλήρωσης.</p>
+  </div>
+  <div class="next-section">
+    <button class="btn"><span class="dot"></span> Επόμενο →</button>
+  </div>
+</div>
+</body>
+</html>

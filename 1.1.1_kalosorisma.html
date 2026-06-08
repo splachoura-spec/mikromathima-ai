@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Καλωσόρισμα</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 760px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #B8DDE8; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 64px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.intro-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 40px 36px; box-shadow: 6px 6px 0 #1A1A1A; }
+.intro-card p { font-size: 17px; line-height: 1.7; margin-bottom: 18px; }
+.intro-card .lead { font-size: 19px; font-style: italic; color: #555; }
+.intro-card .term { background: #FFE566; padding: 0 6px; font-weight: 600; }
+.video-placeholder { background: #F8F8F4; border: 2px dashed #1A1A1A; border-radius: 16px; padding: 50px 20px; text-align: center; margin: 24px 0; }
+.video-placeholder .v-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; }
+.video-placeholder p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; margin: 0; }
+.next-section { text-align: center; margin-top: 30px; }
+.btn { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 14px 28px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover { background: #1A1A1A; color: #FF9CB8; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+@media (max-width: 640px) { .header h1 { font-size: 42px; } .intro-card { padding: 28px 22px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-pill">1.1.1 · Καλωσόρισμα</div>
+    <h1>καλώς <span class="highlight">ήρθες!</span></h1>
+  </div>
+  <div class="intro-card">
+    <p class="lead">Πόσες φορές έχεις ρωτήσει το ChatGPT για κάτι σημαντικό — ένα φάρμακο, έναν νόμο, μια απόφαση — και ακολούθησες την απάντηση χωρίς δεύτερη σκέψη;</p>
+    <p>Τα εργαλεία Τεχνητής Νοημοσύνης μπορούν να παράγουν αληθοφανείς πληροφορίες που απλά δεν ισχύουν — ένα φαινόμενο που λέγεται <span class="term">hallucination</span>.</p>
+    <p>Σε αυτό το μικρομάθημα διάρκειας <strong>1,5 ώρας</strong> θα αναπτύξεις την ικανότητα κριτικής αξιολόγησης AI-generated περιεχομένου — με ένα πρακτικό πλαίσιο που μπορείς να εφαρμόσεις αμέσως στην καθημερινή σου ζωή.</p>
+    <div class="video-placeholder">
+      <div class="v-label">Βίντεο εισαγωγής · ~2'</div>
+      <p>[Talking head video]</p>
+    </div>
+  </div>
+  <div class="next-section">
+    <button class="btn"><span class="dot"></span> Πάμε στα Μαθησιακά Αποτελέσματα →</button>
+  </div>
+</div>
+</body>
+</html>

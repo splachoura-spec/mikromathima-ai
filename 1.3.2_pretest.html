@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-test — Τι ξέρω ήδη;</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: 
+      linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #1A1A1A;
+  }
+  
+  .container { max-width: 760px; margin: 0 auto; }
+  
+  .header { text-align: center; margin-bottom: 40px; }
+  .header-pill { display: inline-block; background: #B8DDE8; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 56px; line-height: 1; margin-bottom: 12px; }
+  .header h1 .highlight { background: #FF9CB8; padding: 0 12px; color: #1A1A1A; }
+  .header-sub { font-size: 15px; color: #555; max-width: 480px; margin: 0 auto; }
+  
+  .progress-wrap { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 4px; margin: 30px auto; max-width: 400px; }
+  .progress-bar { background: #FF9CB8; height: 24px; border-radius: 100px; width: 25%; transition: width 0.5s ease; display: flex; align-items: center; justify-content: center; color: #1A1A1A; font-size: 12px; font-weight: 700; }
+  
+  .question-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 36px 32px; margin-bottom: 24px; box-shadow: 6px 6px 0 #1A1A1A; }
+  .question-num { display: inline-block; background: #1A1A1A; color: #FFE566; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px; padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+  .question-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 28px; line-height: 1.2; margin-bottom: 8px; }
+  .question-text { font-size: 16px; color: #555; margin-bottom: 24px; }
+  
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 18px; cursor: pointer; font-size: 15px; font-weight: 500; text-align: left; font-family: inherit; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .option:hover:not(:disabled) { background: #FFE566; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #1A1A1A; }
+  .option-letter { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 2px solid #1A1A1A; width: 32px; height: 32px; border-radius: 50%; font-weight: 700; flex-shrink: 0; font-family: 'DM Serif Display', serif; font-style: italic; }
+  .option.selected { background: #B5D89F; }
+  .option:disabled { cursor: default; }
+  
+  .feedback { margin-top: 20px; padding: 18px 20px; border-radius: 14px; border: 2px solid #1A1A1A; font-size: 15px; line-height: 1.5; display: none; animation: slideIn 0.3s ease; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  .feedback.show { display: block; }
+  .feedback.pink { background: #FFD5DF; }
+  .feedback.blue { background: #C8E5EE; }
+  .feedback.green { background: #C8E2B5; }
+  .feedback.yellow { background: #FFEC8B; }
+  .feedback-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; background: #1A1A1A; color: #fff; margin-right: 8px; }
+  
+  .nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 12px; }
+  .btn { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+  .btn:hover:not(:disabled) { background: #1A1A1A; color: #fff; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-primary { background: #FF9CB8; }
+  .btn-primary:hover:not(:disabled) { background: #1A1A1A; color: #FF9CB8; }
+  .dot { width: 8px; height: 8px; background: #FF9CB8; border-radius: 50%; display: inline-block; }
+  .btn:hover .dot { background: #FFE566; }
+  
+  .completion { display: none; text-align: center; background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 48px 32px; box-shadow: 6px 6px 0 #1A1A1A; }
+  .completion.show { display: block; }
+  .completion h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 40px; line-height: 1.1; margin-bottom: 16px; }
+  .completion p { color: #555; margin-bottom: 24px; font-size: 16px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .completion-list { background: #FFEC8B; border: 2px solid #1A1A1A; border-radius: 14px; padding: 20px 24px; text-align: left; margin: 24px auto; max-width: 480px; }
+  .completion-list-item { margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+  .completion-list-item::before { content: "→ "; color: #FF9CB8; font-weight: 700; }
+  
+  @media (max-width: 640px) {
+    .header h1 { font-size: 36px; }
+    .question-title { font-size: 22px; }
+    .question-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">Pre-test · Διαγνωστική Αξιολόγηση</div>
+    <h1>τι ξέρεις <span class="highlight">ήδη;</span></h1>
+    <p class="header-sub">4 σύντομες ερωτήσεις — δεν βαθμολογούνται. Απάντησε αυθόρμητα και θα μάθεις τι σε περιμένει.</p>
+  </div>
+  
+  <div class="progress-wrap"><div class="progress-bar" id="progress">1 / 4</div></div>
+  
+  <div id="quiz-area">
+    
+    <div class="question-card" data-q="1">
+      <div class="question-num">Q1</div>
+      <h2 class="question-title">Πόσο συχνά χρησιμοποιείς AI εργαλεία;</h2>
+      <p class="question-text">ChatGPT, Gemini, Copilot ή άλλα παρόμοια</p>
+      <div class="options">
+        <button class="option" data-feedback="all"><span class="option-letter">α</span>Καθημερινά</button>
+        <button class="option" data-feedback="all"><span class="option-letter">β</span>Μερικές φορές την εβδομάδα</button>
+        <button class="option" data-feedback="all"><span class="option-letter">γ</span>Σπάνια</button>
+        <button class="option" data-feedback="all"><span class="option-letter">δ</span>Ποτέ — αυτή είναι η πρώτη μου φορά</button>
+      </div>
+      <div class="feedback pink">
+        <span class="feedback-label">Σημείωση</span>Όποιο και αν είναι το επίπεδό σου, αυτό το μικρομάθημα θα σου δώσει εργαλεία που θα χρησιμοποιείς από εδώ και πέρα κάθε φορά που αλληλεπιδράς με ένα AI εργαλείο.
+      </div>
+    </div>
+    
+    <div class="question-card" data-q="2" style="display:none;">
+      <div class="question-num">Q2</div>
+      <h2 class="question-title">Όταν λαμβάνεις απάντηση από AI, τι κάνεις;</h2>
+      <p class="question-text">Σκέψου τη συνήθη αντίδρασή σου</p>
+      <div class="options">
+        <button class="option" data-feedback="a"><span class="option-letter">α</span>Την εμπιστεύομαι πλήρως και τη χρησιμοποιώ άμεσα</button>
+        <button class="option" data-feedback="b"><span class="option-letter">β</span>Τη χρησιμοποιώ αλλά την επαληθεύω αν αφορά κάτι σημαντικό</button>
+        <button class="option" data-feedback="c"><span class="option-letter">γ</span>Πάντα επαληθεύω την πληροφορία πριν τη χρησιμοποιήσω</button>
+        <button class="option" data-feedback="d"><span class="option-letter">δ</span>Δεν είμαι σίγουρος/η πώς να επαληθεύσω</button>
+      </div>
+      <div class="feedback pink" data-fb="a"><span class="feedback-label">Προσοχή</span>Είναι μια συχνή προσέγγιση, αλλά κρύβει σημαντικούς κινδύνους. Σε αυτό το μάθημα θα δούμε γιατί.</div>
+      <div class="feedback blue" data-fb="b"><span class="feedback-label">Καλά</span>Καλή προσέγγιση — σε αυτό το μάθημα θα μάθεις πότε και πώς να το κάνεις αποτελεσματικά.</div>
+      <div class="feedback green" data-fb="c"><span class="feedback-label">Άριστα</span>Εξαιρετικό! Αυτό το μάθημα θα σου δώσει συστηματικά κριτήρια ελέγχου.</div>
+      <div class="feedback yellow" data-fb="d"><span class="feedback-label">Σημείωση</span>Αυτό είναι ακριβώς που θα μάθεις στο επόμενο 1,5 ώρα. Στο τέλος θα έχεις ένα πρακτικό πλαίσιο 5 βημάτων.</div>
+    </div>
+    
+    <div class="question-card" data-q="3" style="display:none;">
+      <div class="question-num">Q3</div>
+      <h2 class="question-title">Έχεις ακούσει τον όρο "hallucination";</h2>
+      <p class="question-text">Σε σχέση με τα εργαλεία AI</p>
+      <div class="options">
+        <button class="option" data-feedback="a"><span class="option-letter">α</span>Ναι, και γνωρίζω τι σημαίνει</button>
+        <button class="option" data-feedback="b"><span class="option-letter">β</span>Ναι, αλλά δεν είμαι σίγουρος/η τι σημαίνει</button>
+        <button class="option" data-feedback="c"><span class="option-letter">γ</span>Όχι, δεν το έχω ακούσει</button>
+      </div>
+      <div class="feedback green" data-fb="a"><span class="feedback-label">Τέλεια</span>Στο επόμενο τμήμα θα εμβαθύνουμε στους τύπους και τα παραδείγματα hallucination.</div>
+      <div class="feedback yellow" data-fb="b"><span class="feedback-label">Σημείωση</span>Στα επόμενα 15 λεπτά θα δεις τι ακριβώς σημαίνει και πώς το αναγνωρίζεις.</div>
+      <div class="feedback pink" data-fb="c"><span class="feedback-label">Σημείωση</span>Αυτό θα αλλάξει στα επόμενα 15 λεπτά — και θα είναι ένα από τα πιο χρήσιμα πράγματα που θα κερδίσεις.</div>
+    </div>
+    
+    <div class="question-card" data-q="4" style="display:none;">
+      <div class="question-num">Q4</div>
+      <h2 class="question-title">Νομικό θέμα από AI — τι κάνεις;</h2>
+      <p class="question-text">Ένα AI σε ενημερώνει για συγκεκριμένο νόμο. Τι κάνεις πριν τον χρησιμοποιήσεις επαγγελματικά;</p>
+      <div class="options">
+        <button class="option" data-feedback="a"><span class="option-letter">α</span>Θα τον χρησιμοποιούσα κατευθείαν — το AI είναι αρκετά αξιόπιστο</button>
+        <button class="option" data-feedback="b"><span class="option-letter">β</span>Θα τον αναζητούσα στο Google για επαλήθευση</button>
+        <button class="option" data-feedback="c"><span class="option-letter">γ</span>Θα ανέτρεχα σε επίσημες πηγές (Εθνικό Τυπογραφείο, gov.gr)</button>
+        <button class="option" data-feedback="d"><span class="option-letter">δ</span>Δεν είμαι σίγουρος/η πώς να επαληθεύσω</button>
+      </div>
+      <div class="feedback pink" data-fb="a"><span class="feedback-label">Προσοχή</span>Θα δούμε γιατί αυτή η προσέγγιση είναι ριψοκίνδυνη — ειδικά για νομικά θέματα όπου τα AI συχνά αναφέρουν ξεπερασμένες ή ανύπαρκτες ρυθμίσεις.</div>
+      <div class="feedback blue" data-fb="b"><span class="feedback-label">Καλά</span>Είναι μια αρχή — αλλά θα μάθεις ότι υπάρχουν πιο αξιόπιστες πηγές για συγκεκριμένες κατηγορίες πληροφοριών.</div>
+      <div class="feedback green" data-fb="c"><span class="feedback-label">Άριστα</span>Αυτή είναι ακριβώς η προσέγγιση που θα εμπεδώσεις στο μάθημα.</div>
+      <div class="feedback yellow" data-fb="d"><span class="feedback-label">Σημείωση</span>Τέλεια — αυτό θα μάθεις. Στο τέλος του μαθήματος θα ξέρεις ακριβώς ποιες πηγές να χρησιμοποιείς για κάθε κατηγορία πληροφορίας.</div>
+    </div>
+    
+    <div class="nav-buttons">
+      <button class="btn" id="btn-prev" disabled>← Προηγούμενη</button>
+      <button class="btn btn-primary" id="btn-next" disabled><span class="dot"></span> Επόμενη →</button>
+    </div>
+  </div>
+  
+  <div class="completion" id="completion">
+    <h2>ευχαριστούμε <span style="background:#FF9CB8; padding:0 8px;">για τις απαντήσεις σου</span></h2>
+    <p>Όποιο και αν είναι το επίπεδο εκκίνησής σου, στα επόμενα 75 λεπτά θα αποκτήσεις:</p>
+    <div class="completion-list">
+      <div class="completion-list-item">Ξεκάθαρη κατανόηση του πώς λειτουργούν τα AI εργαλεία και γιατί κάνουν λάθη</div>
+      <div class="completion-list-item">Έναν πρακτικό οδηγό 5 βημάτων για να επαληθεύεις οποιαδήποτε AI απάντηση</div>
+      <div class="completion-list-item">Εξάσκηση σε πραγματικά σενάρια καθημερινής χρήσης</div>
+    </div>
+    <button class="btn btn-primary"><span class="dot"></span> Πάμε στην 1η ενότητα →</button>
+  </div>
+</div>
+
+<script>
+  let currentQ = 1;
+  const totalQ = 4;
+  const answers = {};
+  const progressBar = document.getElementById('progress');
+  const btnNext = document.getElementById('btn-next');
+  const btnPrev = document.getElementById('btn-prev');
+  
+  function updateProgress() {
+    const pct = (currentQ / totalQ) * 100;
+    progressBar.style.width = pct + '%';
+    progressBar.textContent = currentQ + ' / ' + totalQ;
+  }
+  
+  function showQuestion(num) {
+    document.querySelectorAll('.question-card').forEach(card => {
+      card.style.display = card.dataset.q == num ? 'block' : 'none';
+    });
+    btnPrev.disabled = num === 1;
+    btnNext.disabled = !answers[num];
+    btnNext.innerHTML = num === totalQ ? '<span class="dot"></span> Ολοκλήρωση →' : '<span class="dot"></span> Επόμενη →';
+    updateProgress();
+  }
+  
+  document.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', function() {
+      const card = this.closest('.question-card');
+      const qNum = card.dataset.q;
+      card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      this.classList.add('selected');
+      card.querySelectorAll('.option').forEach(o => o.disabled = true);
+      const fbKey = this.dataset.feedback;
+      card.querySelectorAll('.feedback').forEach(fb => fb.classList.remove('show'));
+      if (fbKey === 'all') {
+        card.querySelector('.feedback').classList.add('show');
+      } else {
+        const fb = card.querySelector('.feedback[data-fb="' + fbKey + '"]');
+        if (fb) fb.classList.add('show');
+      }
+      answers[qNum] = true;
+      btnNext.disabled = false;
+    });
+  });
+  
+  btnNext.addEventListener('click', () => {
+    if (currentQ === totalQ) {
+      document.getElementById('quiz-area').style.display = 'none';
+      document.querySelector('.progress-wrap').style.display = 'none';
+      document.getElementById('completion').classList.add('show');
+    } else {
+      currentQ++;
+      showQuestion(currentQ);
+    }
+  });
+  
+  btnPrev.addEventListener('click', () => {
+    if (currentQ > 1) {
+      currentQ--;
+      showQuestion(currentQ);
+    }
+  });
+  
+  updateProgress();
+</script>
+</body>
+</html>

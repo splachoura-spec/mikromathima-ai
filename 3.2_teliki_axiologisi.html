@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Τελική Αξιολόγηση — Πιστοποίηση Ικανότητας</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 760px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #FFE566; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 52px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.header-sub { font-size: 15px; color: #555; max-width: 540px; margin: 0 auto; }
+
+/* INTRO SCREEN */
+.intro-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 36px; box-shadow: 6px 6px 0 #1A1A1A; margin-bottom: 24px; }
+.intro-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 30px; margin-bottom: 16px; }
+.intro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+.intro-stat { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 12px; padding: 14px 16px; }
+.intro-stat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 4px; }
+.intro-stat-value { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; }
+.warning-box { background: #FFD5DF; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 18px; margin: 16px 0; font-size: 13px; font-weight: 500; }
+.warning-box .w-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; margin-bottom: 6px; text-transform: uppercase; }
+
+/* QUIZ */
+.progress-wrap { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 4px; margin: 30px auto; max-width: 400px; display: none; }
+.progress-wrap.show { display: block; }
+.progress-bar { background: #FF9CB8; height: 24px; border-radius: 100px; width: 10%; transition: width 0.5s ease; display: flex; align-items: center; justify-content: center; color: #1A1A1A; font-size: 12px; font-weight: 700; }
+.question-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 32px; margin-bottom: 24px; box-shadow: 6px 6px 0 #1A1A1A; display: none; }
+.question-card.show { display: block; }
+.question-num { display: inline-block; background: #1A1A1A; color: #FFE566; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px; padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+.ma-tag { display: inline-block; background: #B8DDE8; color: #1A1A1A; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 4px 10px; border-radius: 100px; margin-left: 8px; text-transform: uppercase; border: 1.5px solid #1A1A1A; }
+.ma-tag.ma2 { background: #C8E2B5; }
+.question-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; line-height: 1.2; margin-bottom: 14px; }
+.scenario-box { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; font-size: 13px; line-height: 1.5; font-style: italic; }
+.question-text { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 18px; cursor: pointer; font-size: 14px; font-weight: 500; text-align: left; font-family: inherit; transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px; line-height: 1.4; }
+.option:hover { background: #FFE566; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #1A1A1A; }
+.option-letter { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 2px solid #1A1A1A; width: 32px; height: 32px; border-radius: 50%; font-weight: 700; flex-shrink: 0; font-family: 'DM Serif Display', serif; font-style: italic; }
+.option.selected { background: #B8DDE8; }
+
+.nav-buttons { display: none; justify-content: space-between; margin-top: 24px; gap: 12px; }
+.nav-buttons.show { display: flex; }
+.btn { background: #fff; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover:not(:disabled) { background: #1A1A1A; color: #fff; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-primary { background: #FF9CB8; }
+.btn-primary:hover:not(:disabled) { background: #1A1A1A; color: #FF9CB8; }
+.btn-large { padding: 16px 36px; font-size: 16px; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+
+/* RESULTS */
+.results { display: none; text-align: center; }
+.results.show { display: block; }
+.score-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 48px 32px; box-shadow: 6px 6px 0 #1A1A1A; margin-bottom: 24px; }
+.score-circle { width: 180px; height: 180px; margin: 0 auto 20px; border: 4px solid #1A1A1A; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.score-circle.pass { background: #C8E2B5; }
+.score-circle.fail { background: #FFD5DF; }
+.score-num { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 64px; line-height: 1; }
+.score-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+.score-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 36px; line-height: 1.1; margin-bottom: 16px; }
+.score-card p { color: #555; font-size: 16px; max-width: 480px; margin: 0 auto 16px; line-height: 1.5; }
+.score-card ul { text-align: left; max-width: 460px; margin: 0 auto 24px; }
+.score-card li { background: #FFEC8B; padding: 12px 16px; margin-bottom: 8px; border-radius: 10px; font-size: 14px; font-weight: 500; border: 1.5px solid #1A1A1A; }
+.attempts-info { background: #F8F8F4; border: 2px solid #1A1A1A; border-radius: 12px; padding: 10px 16px; font-size: 13px; display: inline-block; margin-bottom: 16px; }
+.action-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 640px) { .header h1 { font-size: 36px; } .question-title { font-size: 20px; } .question-card, .intro-card { padding: 22px; } .intro-grid { grid-template-columns: 1fr; } .score-circle { width: 140px; height: 140px; } .score-num { font-size: 48px; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">3.2 · Τελική Αξιολόγηση</div>
+    <h1>πιστοποίηση <span class="highlight">ικανότητας</span></h1>
+    <p class="header-sub">Αποδείξε ότι κατέκτησες τις δεξιότητες κριτικής αξιολόγησης AI απαντήσεων.</p>
+  </div>
+  
+  <!-- INTRO SCREEN -->
+  <div id="intro-screen">
+    <div class="intro-card">
+      <h2>πριν ξεκινήσεις</h2>
+      <div class="intro-grid">
+        <div class="intro-stat">
+          <div class="intro-stat-label">Ερωτήσεις</div>
+          <div class="intro-stat-value">10</div>
+        </div>
+        <div class="intro-stat">
+          <div class="intro-stat-label">Διάρκεια</div>
+          <div class="intro-stat-value">~10'</div>
+        </div>
+        <div class="intro-stat">
+          <div class="intro-stat-label">Όριο επιτυχίας</div>
+          <div class="intro-stat-value">80%</div>
+        </div>
+        <div class="intro-stat">
+          <div class="intro-stat-label">Προσπάθειες</div>
+          <div class="intro-stat-value" id="attempts-display">3</div>
+        </div>
+      </div>
+      <p style="font-size:14px; line-height:1.6; color:#555;">
+        Η αξιολόγηση αποτελείται από <strong>4 ερωτήσεις κατανόησης</strong> (ΜΑ-1) και <strong>6 ερωτήσεις εφαρμογής</strong> (ΜΑ-2), όλες βασισμένες σε πραγματικά σενάρια.
+      </p>
+      <div class="warning-box">
+        <span class="w-label">Σημαντικό</span>
+        <p>Δεν παρέχεται ανατροφοδότηση κατά τη διάρκεια. Θα δεις μόνο το τελικό σου αποτέλεσμα στο τέλος.</p>
+      </div>
+      <div style="text-align:center; margin-top:24px;">
+        <button class="btn btn-primary btn-large" id="btn-start"><span class="dot"></span> Έναρξη αξιολόγησης →</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- QUIZ -->
+  <div class="progress-wrap"><div class="progress-bar" id="progress">1 / 10</div></div>
+  
+  <div id="quiz-area">
+    
+    <!-- Q1 ΜΑ-1 -->
+    <div class="question-card" data-q="1">
+      <div class="question-num">Q1 <span class="ma-tag">ΜΑ-1</span></div>
+      <h2 class="question-title">Newsletter με εντυπωσιακά στοιχεία</h2>
+      <div class="scenario-box">«Σύμφωνα με πρόσφατη έρευνα του Stanford University (Chen & Roberts, 2023), το 87,3% των καταναλωτών εμπιστεύονται περισσότερο τις διαφημίσεις που δημιουργούνται με AI εργαλεία.»</div>
+      <p class="question-text">Ποιο σημάδι θα σε έκανε να αμφισβητήσεις την εγκυρότητα αυτής της πληροφορίας;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Το γεγονός ότι αναφέρεται σε αμερικανικό πανεπιστήμιο</button>
+        <button class="option" data-key="b" data-correct="true"><span class="option-letter">β</span>Ο πολύ συγκεκριμένος αριθμός (87,3%) σε συνδυασμό με την αναφορά σε συγκεκριμένη μελέτη</button>
+        <button class="option" data-key="c" data-correct="false"><span class="option-letter">γ</span>Η χρήση ξένων ονομάτων ερευνητών</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Δεν υπάρχει τίποτα ύποπτο</button>
+      </div>
+    </div>
+    
+    <!-- Q2 ΜΑ-1 -->
+    <div class="question-card" data-q="2">
+      <div class="question-num">Q2 <span class="ma-tag">ΜΑ-1</span></div>
+      <h2 class="question-title">Επιδοτήσεις νέων αγροτών</h2>
+      <div class="scenario-box">Ο φίλος σου σου λέει: «Ρώτησα το ChatGPT για τις διαθέσιμες επιδοτήσεις για νέους αγρότες και μου έδωσε πολύ αναλυτική απάντηση με ποσά και προθεσμίες. Είμαι έτοιμος να κάνω αίτηση!»</div>
+      <p class="question-text">Ποια είναι η πιο σημαντική κατηγορία σφάλματος που πρέπει να επισημάνεις στον φίλο σου;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Επινοημένες πηγές — μπορεί να μην υπάρχει η επιδότηση</button>
+        <button class="option" data-key="b" data-correct="true"><span class="option-letter">β</span>Ξεπερασμένες πληροφορίες — οι επιδοτήσεις και τα ποσά αλλάζουν συχνά</button>
+        <button class="option" data-key="c" data-correct="false"><span class="option-letter">γ</span>Υπερβολική σιγουριά — το AI χρησιμοποίησε επαγγελματικό τόνο</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Λάθη σε αριθμούς — τα ποσά μπορεί να είναι λάθος</button>
+      </div>
+    </div>
+    
+    <!-- Q3 ΜΑ-1 -->
+    <div class="question-card" data-q="3">
+      <div class="question-num">Q3 <span class="ma-tag">ΜΑ-1</span></div>
+      <h2 class="question-title">Χημεία και απόλυτες διατυπώσεις</h2>
+      <div class="scenario-box">Ένα AI εργαλείο σου απαντά σε μια ερώτηση χημείας με ένα μακροσκελές, τεχνικά διατυπωμένο κείμενο. Στο τέλος γράφει: «Αυτή είναι η μοναδική αποδεκτή μέθοδος στη σύγχρονη επιστημονική κοινότητα.»</div>
+      <p class="question-text">Τι σου υποδεικνύει αυτή η διατύπωση;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Ότι η πληροφορία είναι σίγουρα σωστή, αφού είναι τόσο κατηγορηματική</button>
+        <button class="option" data-key="b" data-correct="false"><span class="option-letter">β</span>Ότι το AI έχει συμβουλευτεί πολλές πηγές πριν απαντήσει</button>
+        <button class="option" data-key="c" data-correct="true"><span class="option-letter">γ</span>Ότι πιθανότατα εμφανίζεται Υπερβολική Σιγουριά — η απόλυτη διατύπωση είναι κόκκινη σημαία</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Ότι η απάντηση προέρχεται από έγκυρο επιστημονικό περιοδικό</button>
+      </div>
+    </div>
+    
+    <!-- Q4 ΜΑ-1 -->
+    <div class="question-card" data-q="4">
+      <div class="question-num">Q4 <span class="ma-tag">ΜΑ-1</span></div>
+      <h2 class="question-title">Πώς λειτουργούν τα AI εργαλεία;</h2>
+      <p class="question-text">Ποια από τις παρακάτω προτάσεις περιγράφει σωστά πώς λειτουργούν τα AI εργαλεία όπως το ChatGPT;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Αναζητούν σε πραγματικό χρόνο πληροφορίες στο διαδίκτυο και επαληθεύουν την αλήθεια</button>
+        <button class="option" data-key="b" data-correct="true"><span class="option-letter">β</span>Προβλέπουν την επόμενη λέξη βάσει στατιστικών προτύπων από τα δεδομένα εκπαίδευσής τους</button>
+        <button class="option" data-key="c" data-correct="false"><span class="option-letter">γ</span>Έχουν πρόσβαση σε όλες τις επιστημονικές βάσεις δεδομένων του κόσμου</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Επικοινωνούν με ανθρώπινους ειδικούς πριν δώσουν την απάντηση</button>
+      </div>
+    </div>
+    
+    <!-- Q5 ΜΑ-2 -->
+    <div class="question-card" data-q="5">
+      <div class="question-num">Q5 <span class="ma-tag ma2">ΜΑ-2</span></div>
+      <h2 class="question-title">Πτυχιακή εργασία και επιστημονικές μελέτες</h2>
+      <div class="scenario-box">Ετοιμάζεις πτυχιακή εργασία και το ChatGPT σου δίνει μια λίστα 5 σχετικών επιστημονικών μελετών με συγκεκριμένους τίτλους, συγγραφείς και χρονολογίες.</div>
+      <p class="question-text">Ποιο είναι το πρώτο βήμα που θα κάνεις πριν τις χρησιμοποιήσεις στη βιβλιογραφία σου;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Θα τις προσθέσω κατευθείαν στη βιβλιογραφία</button>
+        <button class="option" data-key="b" data-correct="true"><span class="option-letter">β</span>Θα αναζητήσω κάθε μελέτη ξεχωριστά στο Google Scholar για να επαληθεύσω την ύπαρξή της</button>
+        <button class="option" data-key="c" data-correct="false"><span class="option-letter">γ</span>Θα ζητήσω από το ChatGPT τους συνδέσμους των μελετών</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Θα ρωτήσω άλλο AI εργαλείο για επιβεβαίωση</button>
+      </div>
+    </div>
+    
+    <!-- Q6 ΜΑ-2 -->
+    <div class="question-card" data-q="6">
+      <div class="question-num">Q6 <span class="ma-tag ma2">ΜΑ-2</span></div>
+      <h2 class="question-title">Διακοπές στο εξωτερικό</h2>
+      <div class="scenario-box">Η οικογένειά σου σχεδιάζει διακοπές στο εξωτερικό και το Gemini σού δίνει αναλυτικές πληροφορίες για τα απαιτούμενα δικαιολογητικά εισόδου σε μια συγκεκριμένη χώρα.</div>
+      <p class="question-text">Ποια είναι η πιο αξιόπιστη πηγή για επαλήθευση αυτών των πληροφοριών;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Άλλο AI εργαλείο</button>
+        <button class="option" data-key="b" data-correct="false"><span class="option-letter">β</span>Forum ταξιδιωτών</button>
+        <button class="option" data-key="c" data-correct="true"><span class="option-letter">γ</span>Επίσημος ιστότοπος της πρεσβείας ή του Υπουργείου Εξωτερικών</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Το Wikipedia της χώρας</button>
+      </div>
+    </div>
+    
+    <!-- Q7 ΜΑ-2 -->
+    <div class="question-card" data-q="7">
+      <div class="question-num">Q7 <span class="ma-tag ma2">ΜΑ-2</span></div>
+      <h2 class="question-title">Στατιστικά ανεργίας</h2>
+      <div class="scenario-box">Διαβάζεις μια AI απάντηση που σου παρουσιάζει στατιστικά για ανεργία στην Ελλάδα: «Σύμφωνα με στοιχεία, η ανεργία στην Ελλάδα ανήλθε στο 11,2% το Δ' τρίμηνο.»</div>
+      <p class="question-text">Ποιο βήμα του Οδηγού 5 Βημάτων είναι το πιο κρίσιμο να εφαρμόσεις εδώ;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Βήμα 1: Εντοπισμός ελέγξιμων στοιχείων</button>
+        <button class="option" data-key="b" data-correct="true"><span class="option-letter">β</span>Βήμα 2: Έλεγχος πηγών (αναζήτηση στην ΕΛΣΤΑΤ ή Eurostat)</button>
+        <button class="option" data-key="c" data-correct="false"><span class="option-letter">γ</span>Βήμα 5: Συνολική αξιολόγηση</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Δεν χρειάζεται κανένα βήμα — το νούμερο φαίνεται λογικό</button>
+      </div>
+    </div>
+    
+    <!-- Q8 ΜΑ-2 -->
+    <div class="question-card" data-q="8">
+      <div class="question-num">Q8 <span class="ma-tag ma2">ΜΑ-2</span></div>
+      <h2 class="question-title">Ιατρική σύσταση με μία πηγή</h2>
+      <div class="scenario-box">Ένα AI σου αναφέρει μια συγκεκριμένη ιατρική σύσταση για συνδυασμό φαρμάκων. Έχεις επαληθεύσει τη μία πηγή που αναφέρει, αλλά δεν βρίσκεις δεύτερη ανεξάρτητη επιβεβαίωση.</div>
+      <p class="question-text">Ποια είναι η σωστή ενέργεια;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Θα τη χρησιμοποιήσω — μία επαλήθευση είναι αρκετή</button>
+        <button class="option" data-key="b" data-correct="true"><span class="option-letter">β</span>Θα τη χρησιμοποιήσω με επιφύλαξη και θα συμβουλευτώ τον γιατρό ή φαρμακοποιό μου</button>
+        <button class="option" data-key="c" data-correct="false"><span class="option-letter">γ</span>Θα τη χρησιμοποιήσω για κάποιον άλλο, όχι για μένα</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Θα ρωτήσω ξανά το ίδιο AI για επιβεβαίωση</button>
+      </div>
+    </div>
+    
+    <!-- Q9 ΜΑ-2 -->
+    <div class="question-card" data-q="9">
+      <div class="question-num">Q9 <span class="ma-tag ma2">ΜΑ-2</span></div>
+      <h2 class="question-title">Φορολογική επαλήθευση</h2>
+      <div class="scenario-box">Ως νέα επιχειρηματίας, ρωτάς το ChatGPT για τη φορολογική σου μεταχείριση. Το AI σου δίνει αναλυτικές πληροφορίες για συντελεστές και υποχρεώσεις.</div>
+      <p class="question-text">Ποιες από τις παρακάτω πηγές θα χρησιμοποιήσεις για επαλήθευση (δύο ανεξάρτητες);</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Wikipedia + ένα forum επιχειρηματιών</button>
+        <button class="option" data-key="b" data-correct="false"><span class="option-letter">β</span>Άλλο AI εργαλείο + άρθρο από blog συμβούλου</button>
+        <button class="option" data-key="c" data-correct="true"><span class="option-letter">γ</span>gov.gr (επίσημες πληροφορίες) + ιστοσελίδα ΑΑΔΕ (aade.gr)</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Δύο διαφορετικά άρθρα από οικονομική εφημερίδα</button>
+      </div>
+    </div>
+    
+    <!-- Q10 ΜΑ-2 -->
+    <div class="question-card" data-q="10">
+      <div class="question-num">Q10 <span class="ma-tag ma2">ΜΑ-2</span></div>
+      <h2 class="question-title">Τελική αξιολόγηση επαλήθευσης</h2>
+      <div class="scenario-box">Έχεις εφαρμόσει τον Οδηγό 5 Βημάτων σε μια AI απάντηση. Αποτέλεσμα: η μία πηγή που αναφέρεται δεν βρέθηκε πουθενά, και η δεύτερη πηγή έχει διαφορετικά νούμερα από αυτά που σου είπε το AI.</div>
+      <p class="question-text">Ποια είναι η σωστή τελική αξιολόγηση;</p>
+      <div class="options">
+        <button class="option" data-key="a" data-correct="false"><span class="option-letter">α</span>Πλήρης επαλήθευση — χρήση με σιγουριά</button>
+        <button class="option" data-key="b" data-correct="false"><span class="option-letter">β</span>Μερική επαλήθευση — χρήση με επιφύλαξη</button>
+        <button class="option" data-key="c" data-correct="true"><span class="option-letter">γ</span>Μη επαλήθευση — απόρριψη και αναζήτηση σε άλλες πηγές</button>
+        <button class="option" data-key="d" data-correct="false"><span class="option-letter">δ</span>Επιστροφή στο AI για διευκρινίσεις</button>
+      </div>
+    </div>
+    
+    <div class="nav-buttons">
+      <button class="btn" id="btn-prev" disabled>← Προηγούμενη</button>
+      <button class="btn btn-primary" id="btn-next" disabled><span class="dot"></span> Επόμενη →</button>
+    </div>
+  </div>
+  
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="score-card">
+      <div class="score-circle" id="score-circle">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-label" id="score-label">/ 10</div>
+      </div>
+      <h2 id="result-title"></h2>
+      <p id="result-text"></p>
+      <div id="result-list"></div>
+      <div class="attempts-info" id="attempts-info"></div>
+      <div class="action-buttons" id="action-buttons"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentQ = 1;
+const totalQ = 10;
+const MAX_ATTEMPTS = 3;
+const PASS_THRESHOLD = 80;
+const answers = {};
+let attempts = 0;
+
+const intro = document.getElementById('intro-screen');
+const quizArea = document.getElementById('quiz-area');
+const progressWrap = document.querySelector('.progress-wrap');
+const navButtons = document.querySelector('.nav-buttons');
+const progressBar = document.getElementById('progress');
+const btnNext = document.getElementById('btn-next');
+const btnPrev = document.getElementById('btn-prev');
+const results = document.getElementById('results');
+
+function updateProgress() {
+  const pct = (currentQ / totalQ) * 100;
+  progressBar.style.width = pct + '%';
+  progressBar.textContent = currentQ + ' / ' + totalQ;
+}
+
+function showQuestion(num) {
+  document.querySelectorAll('.question-card').forEach(card => {
+    card.classList.remove('show');
+    if (card.dataset.q == num) card.classList.add('show');
+  });
+  btnPrev.disabled = num === 1;
+  btnNext.disabled = !answers[num];
+  btnNext.innerHTML = num === totalQ ? '<span class="dot"></span> Υποβολή →' : '<span class="dot"></span> Επόμενη →';
+  updateProgress();
+}
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  intro.style.display = 'none';
+  progressWrap.classList.add('show');
+  navButtons.classList.add('show');
+  showQuestion(1);
+});
+
+document.querySelectorAll('.option').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const card = this.closest('.question-card');
+    const qNum = card.dataset.q;
+    card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected');
+    answers[qNum] = this.dataset.correct === 'true';
+    btnNext.disabled = false;
+  });
+});
+
+btnNext.addEventListener('click', () => {
+  if (currentQ === totalQ) {
+    submitQuiz();
+  } else {
+    currentQ++;
+    showQuestion(currentQ);
+  }
+});
+
+btnPrev.addEventListener('click', () => {
+  if (currentQ > 1) {
+    currentQ--;
+    showQuestion(currentQ);
+  }
+});
+
+function submitQuiz() {
+  attempts++;
+  let correct = 0;
+  for (let i = 1; i <= totalQ; i++) {
+    if (answers[i]) correct++;
+  }
+  const pct = (correct / totalQ) * 100;
+  const passed = pct >= PASS_THRESHOLD;
+  
+  quizArea.style.display = 'none';
+  progressWrap.style.display = 'none';
+  results.classList.add('show');
+  
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-label').textContent = '/ ' + totalQ + ' (' + Math.round(pct) + '%)';
+  
+  const circle = document.getElementById('score-circle');
+  circle.classList.add(passed ? 'pass' : 'fail');
+  
+  if (passed) {
+    document.getElementById('result-title').innerHTML = 'συγχαρητήρια! <span style="background:#FF9CB8; padding:0 8px;">πέτυχες</span>';
+    document.getElementById('result-text').textContent = 'Ολοκλήρωσες με επιτυχία το μικρομάθημα «Εμπιστεύομαι το AI;». Από σήμερα έχεις στα χέρια σου:';
+    document.getElementById('result-list').innerHTML = `
+      <ul>
+        <li>Την ικανότητα να αναγνωρίζεις τις 4 κατηγορίες σφαλμάτων AI</li>
+        <li>Έναν πρακτικό Οδηγό 5 Βημάτων για επαλήθευση</li>
+        <li>Εμπειρία σε πραγματικά σενάρια καθημερινής χρήσης</li>
+      </ul>
+    `;
+    document.getElementById('action-buttons').innerHTML = `
+      <button class="btn btn-primary"><span class="dot"></span> Λήψη Πιστοποιητικού →</button>
+    `;
+  } else {
+    document.getElementById('result-title').innerHTML = 'λίγο <span style="background:#FFE566; padding:0 8px;">ακόμα!</span>';
+    document.getElementById('result-text').textContent = 'Δεν συγκέντρωσες ακόμη το ελάχιστο 80%, αλλά μην ανησυχείς — έχεις 2 ακόμα δυνατότητες:';
+    document.getElementById('result-list').innerHTML = `
+      <ul>
+        <li>Αν δυσκολεύτηκες στις Q1-Q4 → επανέλαβε την Ενότητα 2.1 (Παρουσίαση Εννοιών)</li>
+        <li>Αν δυσκολεύτηκες στις Q5-Q10 → επανέλαβε την Ενότητα 2.3 (Οδηγός 5 βημάτων)</li>
+      </ul>
+    `;
+    const remaining = MAX_ATTEMPTS - attempts;
+    document.getElementById('attempts-info').innerHTML = '<strong>Διαθέσιμες προσπάθειες:</strong> ' + remaining + ' από ' + MAX_ATTEMPTS;
+    
+    if (remaining > 0) {
+      document.getElementById('action-buttons').innerHTML = `
+        <button class="btn" onclick="window.location.reload()">Επιστροφή στο υλικό</button>
+        <button class="btn btn-primary" onclick="retryQuiz()"><span class="dot"></span> Νέα προσπάθεια →</button>
+      `;
+    } else {
+      document.getElementById('action-buttons').innerHTML = `
+        <button class="btn btn-primary" onclick="window.location.reload()"><span class="dot"></span> Επιστροφή στην αρχή →</button>
+      `;
+    }
+  }
+}
+
+function retryQuiz() {
+  // Reset state
+  for (let i = 1; i <= totalQ; i++) delete answers[i];
+  currentQ = 1;
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  results.classList.remove('show');
+  quizArea.style.display = 'block';
+  progressWrap.style.display = 'block';
+  document.getElementById('attempts-display').textContent = MAX_ATTEMPTS - attempts;
+  showQuestion(1);
+}
+</script>
+</body>
+</html>

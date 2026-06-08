@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Οδηγός 5 Βημάτων Ελέγχου AI Απαντήσεων</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 820px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #B5D89F; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 52px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.header-sub { font-size: 15px; color: #555; max-width: 540px; margin: 0 auto; }
+
+.scenario-intro { background: #fff; border: 2px solid #1A1A1A; border-radius: 20px; padding: 24px; margin-bottom: 30px; box-shadow: 4px 4px 0 #1A1A1A; }
+.scenario-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; }
+.scenario-intro h3 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; margin-bottom: 10px; }
+.scenario-intro p { font-size: 14px; line-height: 1.6; color: #555; }
+.scenario-intro .ai-quote { background: #F8F8F4; border-left: 3px solid #FF9CB8; padding: 12px 16px; margin-top: 12px; font-style: italic; font-size: 13px; border-radius: 4px; }
+
+.instructions { background: #FFEC8B; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 20px; margin-bottom: 24px; font-size: 13px; text-align: center; font-weight: 500; }
+
+.steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+
+.step { background: #fff; border: 2px solid #1A1A1A; border-radius: 16px; overflow: hidden; transition: box-shadow 0.3s; }
+.step.open { box-shadow: 4px 4px 0 #1A1A1A; }
+.step:hover:not(.open) { box-shadow: 3px 3px 0 #1A1A1A; }
+
+.step-header { display: flex; align-items: center; gap: 16px; padding: 18px 22px; cursor: pointer; user-select: none; }
+.step-num { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 28px; background: #1A1A1A; color: #FFE566; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step.open .step-num { background: #FF9CB8; color: #1A1A1A; }
+.step-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; flex-grow: 1; }
+.step-toggle { font-size: 28px; transition: transform 0.3s; font-family: 'DM Serif Display', serif; }
+.step.open .step-toggle { transform: rotate(45deg); }
+
+.step-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.step.open .step-body { max-height: 1500px; }
+.step-content { padding: 0 22px 24px; }
+
+.section { margin-bottom: 18px; }
+.section-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-bottom: 8px; }
+.label-explain { background: #B8DDE8; color: #1A1A1A; }
+.label-apply { background: #FFD5DF; color: #1A1A1A; }
+.section p { font-size: 14px; line-height: 1.6; }
+.section ul { margin-left: 20px; margin-top: 6px; font-size: 14px; line-height: 1.7; }
+.section ul li { margin-bottom: 4px; }
+
+.apply-box { background: #FFF8E1; border-left: 4px solid #FF9CB8; padding: 14px 18px; border-radius: 8px; margin-top: 8px; font-size: 14px; line-height: 1.6; }
+
+.golden-rule { background: #FFD5DF; border: 2px dashed #1A1A1A; border-radius: 14px; padding: 16px 20px; margin-top: 16px; font-weight: 500; font-size: 14px; }
+.golden-rule .gr-label { display: inline-block; background: #1A1A1A; color: #FFE566; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; margin-bottom: 8px; text-transform: uppercase; }
+
+.result-pills { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.result-pill { padding: 10px 14px; border: 2px solid #1A1A1A; border-radius: 12px; font-size: 13px; font-weight: 500; flex: 1; min-width: 200px; }
+.pill-green { background: #C8E2B5; }
+.pill-yellow { background: #FFEC8B; }
+.pill-red { background: #FFD5DF; }
+
+.completion-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 36px; text-align: center; box-shadow: 6px 6px 0 #1A1A1A; }
+.completion-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 32px; line-height: 1.1; margin-bottom: 16px; }
+.completion-card p { color: #555; margin-bottom: 20px; font-size: 15px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+.btn { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover { background: #1A1A1A; color: #FF9CB8; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+.btn:hover .dot { background: #FFE566; }
+
+@media (max-width: 640px) { .header h1 { font-size: 36px; } .step-title { font-size: 18px; } .step-num { width: 40px; height: 40px; font-size: 22px; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">2.3 · Επίδειξη Δεξιότητας · ΜΑ-2</div>
+    <h1>οδηγός <span class="highlight">5 βημάτων</span></h1>
+    <p class="header-sub">Πώς να ελέγχεις οποιαδήποτε AI απάντηση — βήμα-βήμα, με πραγματικό σενάριο.</p>
+  </div>
+  
+  <div class="scenario-intro">
+    <span class="scenario-label">Σενάριο εφαρμογής</span>
+    <h3>Μετφορμίνη + καφές</h3>
+    <p>Θυμάσαι την απάντηση που είδαμε στην αρχή; Το ChatGPT μας είπε:</p>
+    <div class="ai-quote">
+      «Συνιστάται η κατανάλωση έως 2 φλιτζανιών καφέ ημερησίως. Σύμφωνα με μελέτη που δημοσιεύθηκε στο Journal of Clinical Endocrinology (2019), η μέτρια κατανάλωση καφεΐνης δεν επηρεάζει σημαντικά τη δράση της μετφορμίνης σε ασθενείς με διαβήτη τύπου 2.»
+    </div>
+    <p style="margin-top:12px;"><strong>Τώρα γνωρίζεις ότι μπορεί να περιέχει σφάλματα.</strong> Παρακάτω θα δεις πώς να την ελέγξεις βήμα-βήμα.</p>
+  </div>
+  
+  <div class="instructions">Πάτησε σε κάθε βήμα για να δεις την επεξήγηση και την εφαρμογή στο σενάριο</div>
+  
+  <div class="steps">
+    
+    <!-- ΒΗΜΑ 1 -->
+    <div class="step" data-step="1">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Εντόπισε τα «ελέγξιμα» στοιχεία</div>
+        <div class="step-toggle">+</div>
+      </div>
+      <div class="step-body"><div class="step-content">
+        <div class="section">
+          <span class="section-label label-explain">Επεξήγηση</span>
+          <p>Διάβασε την AI απάντηση και εντόπισε όλα τα στοιχεία που μπορούν να επαληθευτούν:</p>
+          <ul>
+            <li>Ονόματα ερευνητών, συγγραφέων ή ειδικών</li>
+            <li>Τίτλοι μελετών, βιβλίων, άρθρων</li>
+            <li>Ημερομηνίες, χρονολογίες</li>
+            <li>Αριθμοί, ποσοστά, στατιστικά</li>
+            <li>Νόμοι, νομοθετικές διατάξεις</li>
+            <li>Συγκεκριμένες συστάσεις ή οδηγίες</li>
+          </ul>
+        </div>
+        <div class="section">
+          <span class="section-label label-apply">Εφαρμογή στο σενάριο</span>
+          <div class="apply-box">
+            Στην απάντηση για μετφορμίνη + καφέ, τα ελέγξιμα στοιχεία είναι:<br>
+            → «Journal of Clinical Endocrinology» — υπάρχει αυτό το περιοδικό;<br>
+            → «(2019)» — υπάρχει συγκεκριμένη μελέτη το 2019;<br>
+            → «έως 2 φλιτζάνια καφέ ημερησίως» — από πού προέρχεται αυτή η σύσταση;<br>
+            → «διαβήτης τύπου 2» — η μελέτη όντως αφορά αυτό;
+          </div>
+        </div>
+      </div></div>
+    </div>
+    
+    <!-- ΒΗΜΑ 2 -->
+    <div class="step" data-step="2">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Έλεγξε τις πηγές</div>
+        <div class="step-toggle">+</div>
+      </div>
+      <div class="step-body"><div class="step-content">
+        <div class="section">
+          <span class="section-label label-explain">Επεξήγηση</span>
+          <p>Αναζήτησε τις πηγές σε αξιόπιστες βάσεις δεδομένων:</p>
+          <ul>
+            <li><strong>Επιστημονικές μελέτες:</strong> Google Scholar, PubMed, ResearchGate</li>
+            <li><strong>Νόμοι (Ελλάδα):</strong> Εθνικό Τυπογραφείο (et.gr), gov.gr, ΦΕΚ</li>
+            <li><strong>Νόμοι (ΕΕ):</strong> EUR-Lex</li>
+            <li><strong>Στατιστικά:</strong> ΕΛΣΤΑΤ, Eurostat, OECD</li>
+            <li><strong>Ιατρικές πληροφορίες:</strong> ΕΟΦ, ΕΟΔΥ, WHO, CDC</li>
+          </ul>
+        </div>
+        <div class="section">
+          <span class="section-label label-apply">Εφαρμογή στο σενάριο</span>
+          <div class="apply-box">
+            Αναζητούμε τη μελέτη στο <strong>Google Scholar</strong>: <em>"metformin caffeine Journal of Clinical Endocrinology 2019"</em><br><br>
+            <strong>Αποτέλεσμα:</strong> Δεν βρίσκεται συγκεκριμένη μελέτη με αυτές τις παραμέτρους. Η μελέτη είναι πιθανότατα <strong>επινοημένη</strong>.
+          </div>
+        </div>
+      </div></div>
+    </div>
+    
+    <!-- ΒΗΜΑ 3 -->
+    <div class="step" data-step="3">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Έλεγξε την ημερομηνία</div>
+        <div class="step-toggle">+</div>
+      </div>
+      <div class="step-body"><div class="step-content">
+        <div class="section">
+          <span class="section-label label-explain">Επεξήγηση</span>
+          <p>Σκέψου: είναι το θέμα κάτι που αλλάζει με τον χρόνο;</p>
+          <p style="margin-top:8px;"><strong>Θέματα που αλλάζουν συχνά:</strong></p>
+          <ul>
+            <li>Νομοθεσία, φορολογία</li>
+            <li>Τιμές, μισθοί, επιδοτήσεις</li>
+            <li>Ιατρικά πρωτόκολλα και συστάσεις</li>
+            <li>Πρόσφατα γεγονότα, ονόματα στελεχών</li>
+          </ul>
+          <p style="margin-top:8px;"><strong>Ρώτησε το AI άμεσα:</strong> «Πότε είναι η τελευταία ενημέρωση των γνώσεών σου;»</p>
+        </div>
+        <div class="section">
+          <span class="section-label label-apply">Εφαρμογή στο σενάριο</span>
+          <div class="apply-box">
+            Οι ιατρικές συστάσεις για αλληλεπιδράσεις φαρμάκων μπορούν να ενημερώνονται. Η σύσταση για 2 φλιτζάνια καφέ:<br>
+            → Αν προέρχεται από μελέτη του 2019, μπορεί να μην αντικατοπτρίζει νεότερα δεδομένα<br>
+            → Αν είναι επινοημένη, δεν έχει καν επιστημονική βάση
+          </div>
+        </div>
+      </div></div>
+    </div>
+    
+    <!-- ΒΗΜΑ 4 -->
+    <div class="step" data-step="4">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div class="step-title">Επαλήθευσε σε 2 ανεξάρτητες πηγές</div>
+        <div class="step-toggle">+</div>
+      </div>
+      <div class="step-body"><div class="step-content">
+        <div class="section">
+          <span class="section-label label-explain">Επεξήγηση</span>
+          <p>Μην βασίζεσαι σε μία μόνο πηγή επαλήθευσης. Διασταύρωσε την πληροφορία σε τουλάχιστον <strong>2 ανεξάρτητες αξιόπιστες πηγές</strong>.</p>
+          <p style="margin-top:10px;"><strong>Αξιόπιστες:</strong></p>
+          <ul>
+            <li>Επίσημοι κυβερνητικοί ιστότοποι (.gov.gr)</li>
+            <li>Ακαδημαϊκά ιδρύματα και πανεπιστήμια</li>
+            <li>Peer-reviewed επιστημονικά περιοδικά</li>
+            <li>Επίσημοι επαγγελματικοί οργανισμοί (ΕΟΦ, Ιατρικός Σύλλογος)</li>
+          </ul>
+          <p style="margin-top:10px;"><strong>ΟΧΙ αξιόπιστες:</strong></p>
+          <ul>
+            <li>Άλλα AI εργαλεία</li>
+            <li>Wikipedia (ως μοναδική πηγή)</li>
+            <li>Forums, social media</li>
+            <li>Sites χωρίς αναφορά συγγραφέα ή πηγών</li>
+          </ul>
+        </div>
+        <div class="section">
+          <span class="section-label label-apply">Εφαρμογή στο σενάριο</span>
+          <div class="apply-box">
+            Για το ερώτημα μετφορμίνη + καφές:<br><br>
+            <strong>Πηγή 1:</strong> Φύλλο Οδηγιών Χρήσης (ΦΟΧ) μετφορμίνης από τον ΕΟΦ (eof.gr) — δεν αναφέρει συγκεκριμένη αλληλεπίδραση με καφεΐνη<br><br>
+            <strong>Πηγή 2:</strong> Επίσημες οδηγίες της Ελληνικής Διαβητολογικής Εταιρείας (ede.gr) — η ασφαλής σύσταση είναι <strong>πάντα να ρωτάς τον γιατρό σου</strong>
+          </div>
+        </div>
+      </div></div>
+    </div>
+    
+    <!-- ΒΗΜΑ 5 -->
+    <div class="step" data-step="5">
+      <div class="step-header">
+        <div class="step-num">5</div>
+        <div class="step-title">Αξιολόγησε το αποτέλεσμα</div>
+        <div class="step-toggle">+</div>
+      </div>
+      <div class="step-body"><div class="step-content">
+        <div class="section">
+          <span class="section-label label-explain">Επεξήγηση</span>
+          <p>Μετά τα 4 πρώτα βήματα, κάνε μια συνολική αξιολόγηση:</p>
+          <div class="result-pills">
+            <div class="result-pill pill-green"><strong>Πλήρης επαλήθευση</strong><br>→ Χρήση με σιγουριά</div>
+            <div class="result-pill pill-yellow"><strong>Μερική επαλήθευση</strong><br>→ Χρήση με επιφύλαξη, συμβουλεύσου ειδικό</div>
+            <div class="result-pill pill-red"><strong>Μη επαλήθευση</strong><br>→ Απόρριψη, αναζήτηση σε άλλες πηγές</div>
+          </div>
+          <div class="golden-rule">
+            <span class="gr-label">Χρυσός κανόνας</span>
+            <p>Όταν αφορά <strong>υγεία, νομικά, οικονομικά</strong> — <strong>πάντα ρωτάς ειδικό</strong>, ανεξάρτητα από το τι λέει το AI.</p>
+          </div>
+        </div>
+        <div class="section">
+          <span class="section-label label-apply">Εφαρμογή στο σενάριο</span>
+          <div class="apply-box">
+            <strong>Συμπέρασμα:</strong> Η αρχική AI απάντηση <strong>δεν επαληθεύεται</strong>:<br>
+            → Η μελέτη είναι πιθανότατα επινοημένη<br>
+            → Η σύσταση των 2 φλιτζανιών δεν έχει αξιόπιστη πηγή<br><br>
+            <strong>Σωστή ενέργεια:</strong> Ρώτησε τον γιατρό σου ή τον φαρμακοποιό σου πριν συνδυάσεις μετφορμίνη με καφεΐνη.
+          </div>
+        </div>
+      </div></div>
+    </div>
+    
+  </div>
+  
+  <div class="completion-card">
+    <h2>τώρα έχεις στα χέρια σου <span style="background:#FF9CB8; padding:0 8px;">τον οδηγό</span></h2>
+    <p>Στην επόμενη ενότητα θα τον εφαρμόσεις σε <strong>3 πραγματικά σενάρια</strong> χρήσης AI. Έτοιμη/ος;</p>
+    <button class="btn"><span class="dot"></span> Πάμε στην εξάσκηση →</button>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.step-header').forEach(header => {
+  header.addEventListener('click', function() {
+    const step = this.closest('.step');
+    const isOpen = step.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('open'));
+    // Open clicked if not already open
+    if (!isOpen) step.classList.add('open');
+  });
+});
+
+// Open step 1 by default
+document.querySelector('.step[data-step="1"]').classList.add('open');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Άδεια Χρήσης</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 720px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #FFD5DF; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; border: 1.5px solid #1A1A1A; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.license-card { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 36px; box-shadow: 6px 6px 0 #1A1A1A; text-align: center; }
+.cc-badge { background: #1A1A1A; color: #fff; padding: 16px 24px; border-radius: 16px; display: inline-block; margin-bottom: 24px; }
+.cc-badge .cc-icons { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 32px; margin-bottom: 6px; letter-spacing: 4px; }
+.cc-badge .cc-text { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+.license-card h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 26px; margin-bottom: 16px; line-height: 1.2; }
+.license-card p { font-size: 15px; line-height: 1.6; margin-bottom: 14px; }
+.license-card .conditions { background: #FFE566; border: 2px solid #1A1A1A; border-radius: 12px; padding: 16px 20px; margin-top: 20px; text-align: left; }
+.license-card .conditions strong { display: block; margin-bottom: 8px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+.license-card .conditions ul { margin-left: 20px; font-size: 14px; line-height: 1.7; }
+.next-section { text-align: center; margin-top: 24px; }
+.btn { background: #FF9CB8; border: 2px solid #1A1A1A; border-radius: 100px; padding: 14px 28px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.btn:hover { background: #1A1A1A; color: #FF9CB8; transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #FF9CB8; }
+.dot { width: 8px; height: 8px; background: #1A1A1A; border-radius: 50%; display: inline-block; }
+@media (max-width: 640px) { .header h1 { font-size: 32px; } .license-card { padding: 24px 20px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-pill">1.1.4 · Άδεια Χρήσης</div>
+    <h1>ανοιχτό <span class="highlight">περιεχόμενο</span></h1>
+  </div>
+  <div class="license-card">
+    <div class="cc-badge">
+      <div class="cc-icons">CC BY-SA 4.0</div>
+      <div class="cc-text">Creative Commons</div>
+    </div>
+    <h2>αναφορά δημιουργού<br>παρόμοια διανομή 4.0</h2>
+    <p>Το παρόν εκπαιδευτικό υλικό διατίθεται με άδεια <strong>Creative Commons Αναφορά Δημιουργού – Παρόμοια Διανομή 4.0 Διεθνές</strong>.</p>
+    <div class="conditions">
+      <strong>Μπορείς να:</strong>
+      <ul>
+        <li>μοιραστείς, αντιγράψεις και αναδιανείμεις το υλικό σε οποιοδήποτε μέσο</li>
+        <li>προσαρμόσεις, μετατρέψεις και χτίσεις πάνω στο υλικό</li>
+      </ul>
+      <strong style="margin-top:12px;">Υπό την προϋπόθεση:</strong>
+      <ul>
+        <li>αναφοράς στους δημιουργούς</li>
+        <li>διανομής τυχόν τροποποιήσεων με την ίδια άδεια</li>
+      </ul>
+    </div>
+  </div>
+  <div class="next-section">
+    <button class="btn"><span class="dot"></span> Επόμενο →</button>
+  </div>
+</div>
+</body>
+</html>

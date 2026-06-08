@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Γιατί Αυτό Μας Αφορά Όλους</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), repeating-linear-gradient(0deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #E8E8E8 39px, #E8E8E8 40px); min-height: 100vh; padding: 40px 20px; color: #1A1A1A; }
+.container { max-width: 760px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 36px; }
+.header-pill { display: inline-block; background: #FFD5DF; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; }
+.header h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.header h1 .highlight { background: #FF9CB8; padding: 0 12px; }
+.header-sub { font-size: 15px; color: #555; max-width: 540px; margin: 0 auto; }
+
+.instructions { background: #FFEC8B; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 20px; margin-bottom: 24px; font-size: 13px; text-align: center; font-weight: 500; }
+
+.categories { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+
+.category { background: #fff; border: 2px solid #1A1A1A; border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+.category.open { box-shadow: 4px 4px 0 #1A1A1A; }
+
+.cat-header { display: flex; align-items: center; gap: 16px; padding: 18px 22px; cursor: pointer; user-select: none; }
+.cat-icon { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 24px; background: #FF9CB8; color: #1A1A1A; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid #1A1A1A; }
+.category.open .cat-icon { background: #1A1A1A; color: #FFE566; }
+.cat-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; flex-grow: 1; }
+.cat-toggle { font-size: 28px; transition: transform 0.3s; font-family: 'DM Serif Display', serif; }
+.category.open .cat-toggle { transform: rotate(45deg); }
+
+.cat-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.category.open .cat-body { max-height: 600px; }
+.cat-content { padding: 0 22px 22px; }
+
+.examples { background: #F8F8F4; border-left: 4px solid #FF9CB8; padding: 14px 18px; border-radius: 8px; margin-bottom: 14px; }
+.examples-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 8px; }
+.examples ul { margin-left: 20px; font-size: 14px; line-height: 1.7; }
+.examples li { margin-bottom: 4px; font-style: italic; }
+
+.consequence { background: #FFD5DF; border: 2px solid #1A1A1A; border-radius: 10px; padding: 12px 16px; font-size: 13px; font-weight: 500; }
+.consequence-label { display: inline-block; background: #1A1A1A; color: #FF9CB8; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 100px; margin-bottom: 6px; text-transform: uppercase; }
+
+.final-question { background: #fff; border: 2px solid #1A1A1A; border-radius: 24px; padding: 36px; text-align: center; box-shadow: 6px 6px 0 #1A1A1A; }
+.fq-label { display: inline-block; background: #FFE566; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; text-transform: uppercase; border: 1.5px solid #1A1A1A; }
+.final-question h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 38px; line-height: 1.1; margin-bottom: 16px; }
+.final-question h2 .highlight { background: #FF9CB8; padding: 0 8px; }
+.final-question p { color: #555; font-size: 16px; max-width: 480px; margin: 0 auto; line-height: 1.5; }
+
+@media (max-width: 640px) { .header h1 { font-size: 32px; } .cat-title { font-size: 18px; } .cat-icon { width: 40px; height: 40px; font-size: 20px; } .final-question h2 { font-size: 28px; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-pill">1.2 · Εισαγωγή στο Θέμα</div>
+    <h1>γιατί αυτό <span class="highlight">μας αφορά</span> όλους</h1>
+    <p class="header-sub">Πού χρησιμοποιούμε AI εργαλεία στην καθημερινότητά μας; Πάτησε σε κάθε κατηγορία για να δεις παραδείγματα και συνέπειες.</p>
+  </div>
+  
+  <div class="instructions">Πάτησε σε κάθε κατηγορία για να ανοίξει</div>
+  
+  <div class="categories">
+    
+    <div class="category" data-cat="1">
+      <div class="cat-header">
+        <div class="cat-icon">01</div>
+        <div class="cat-title">Επαγγελματικά θέματα</div>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="cat-body"><div class="cat-content">
+        <div class="examples">
+          <div class="examples-label">Παραδείγματα ερωτήσεων</div>
+          <ul>
+            <li>"Ποια είναι η ισχύουσα φορολογική νομοθεσία για ελεύθερους επαγγελματίες;"</li>
+            <li>"Ποιες είναι οι εργατικές μου υποχρεώσεις ως νέος εργοδότης;"</li>
+            <li>"Πώς υπολογίζεται η αποζημίωση απόλυσης;"</li>
+          </ul>
+        </div>
+        <div class="consequence">
+          <span class="consequence-label">Συνέπεια</span>
+          <p>Νομικές παραβάσεις, οικονομικά πρόστιμα, λανθασμένες επαγγελματικές αποφάσεις.</p>
+        </div>
+      </div></div>
+    </div>
+    
+    <div class="category" data-cat="2">
+      <div class="cat-header">
+        <div class="cat-icon">02</div>
+        <div class="cat-title">Υγεία και ευεξία</div>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="cat-body"><div class="cat-content">
+        <div class="examples">
+          <div class="examples-label">Παραδείγματα ερωτήσεων</div>
+          <ul>
+            <li>"Μπορώ να συνδυάσω αυτό το φάρμακο με το άλλο;"</li>
+            <li>"Τι παρενέργειες έχει αυτό το αντιβιοτικό;"</li>
+            <li>"Ποια διατροφή είναι κατάλληλη για την κατάστασή μου;"</li>
+          </ul>
+        </div>
+        <div class="consequence">
+          <span class="consequence-label">Συνέπεια</span>
+          <p>Σοβαρά προβλήματα υγείας, αλληλεπιδράσεις φαρμάκων, καθυστέρηση στην αναζήτηση πραγματικής ιατρικής βοήθειας.</p>
+        </div>
+      </div></div>
+    </div>
+    
+    <div class="category" data-cat="3">
+      <div class="cat-header">
+        <div class="cat-icon">03</div>
+        <div class="cat-title">Εκπαίδευση και έρευνα</div>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="cat-body"><div class="cat-content">
+        <div class="examples">
+          <div class="examples-label">Παραδείγματα ερωτήσεων</div>
+          <ul>
+            <li>"Ποιες μελέτες υποστηρίζουν αυτή τη θεωρία;"</li>
+            <li>"Πότε δημοσίευσε ο τάδε ερευνητής αυτό το άρθρο;"</li>
+            <li>"Ποια είναι τα κύρια έργα του τάδε συγγραφέα;"</li>
+          </ul>
+        </div>
+        <div class="consequence">
+          <span class="consequence-label">Συνέπεια</span>
+          <p>Αναφορά σε ανύπαρκτες πηγές, ακαδημαϊκή αναξιοπιστία, λανθασμένη βιβλιογραφία.</p>
+        </div>
+      </div></div>
+    </div>
+    
+    <div class="category" data-cat="4">
+      <div class="cat-header">
+        <div class="cat-icon">04</div>
+        <div class="cat-title">Αγορές και αποφάσεις</div>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="cat-body"><div class="cat-content">
+        <div class="examples">
+          <div class="examples-label">Παραδείγματα ερωτήσεων</div>
+          <ul>
+            <li>"Ποιο μοντέλο τηλεόρασης είναι το καλύτερο στα 500€;"</li>
+            <li>"Ποια είναι η μέση τιμή για ανακαίνιση μπάνιου;"</li>
+            <li>"Ποιες ασφάλειες αυτοκινήτου είναι οι πιο αξιόπιστες;"</li>
+          </ul>
+        </div>
+        <div class="consequence">
+          <span class="consequence-label">Συνέπεια</span>
+          <p>Λανθασμένες οικονομικές αποφάσεις, σπατάλη χρημάτων, παραπλάνηση από επινοημένα στοιχεία.</p>
+        </div>
+      </div></div>
+    </div>
+    
+  </div>
+  
+  <div class="final-question">
+    <span class="fq-label">Κεντρικό ερώτημα</span>
+    <h2>πώς ξέρω αν αυτό που μου λέει το AI <span class="highlight">είναι αξιόπιστο;</span></h2>
+    <p>Αυτή είναι η ικανότητα που θα αναπτύξεις στα επόμενα 45 λεπτά.</p>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.cat-header').forEach(header => {
+  header.addEventListener('click', function() {
+    const cat = this.closest('.category');
+    const isOpen = cat.classList.contains('open');
+    document.querySelectorAll('.category').forEach(c => c.classList.remove('open'));
+    if (!isOpen) cat.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
