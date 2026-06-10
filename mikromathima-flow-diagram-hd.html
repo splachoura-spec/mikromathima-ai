@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Διάγραμμα Ροής — Εμπιστεύομαι το AI;</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { font-family: 'DM Sans', sans-serif; background: #FAFAF7; color: #1A1A1A; min-height: 100vh; }
+body { padding: 60px 40px; display: flex; justify-content: center; align-items: flex-start; }
+.container { max-width: 1180px; width: 100%; margin: 0 auto; }
+
+.title-area { text-align: center; margin-bottom: 40px; }
+.pill { display: inline-block; background: #FFE566; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; padding: 6px 18px; border-radius: 100px; margin-bottom: 18px; text-transform: uppercase; border: 1.5px solid #1A1A1A; }
+.title-area h1 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 60px; line-height: 1.15; padding: 4px 0; }
+.title-area h1 .pink { background: #FF9CB8; padding: 0 14px; -webkit-box-decoration-break: clone; box-decoration-break: clone; display: inline-block; line-height: 1.05; }
+.subtitle { font-size: 14px; color: #555; margin-top: 14px; letter-spacing: 1px; }
+
+/* SECTION BOX */
+.section { border: 2.5px solid #1A1A1A; border-radius: 24px; padding: 28px 30px; margin-bottom: 24px; box-shadow: 6px 6px 0 #1A1A1A; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.section-num { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; background: #1A1A1A; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-info { flex-grow: 1; }
+.section-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 26px; line-height: 1.1; }
+.section-title .duration { color: #B83E5D; }
+.section-meta { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #555; margin-top: 4px; }
+
+/* Section colors */
+.section-1 { background: #FFF4D9; }
+.section-2 { background: #FFE5E9; }
+.section-3 { background: #E0F0E5; }
+
+/* MA HEADER inside section 2 */
+.ma-divider { background: #FF9CB8; color: #1A1A1A; padding: 8px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; display: inline-block; margin: 14px 0 12px; border: 1.5px solid #1A1A1A; }
+.ma-divider.ma2 { background: #B5D89F; }
+
+/* ACTIVITY CARDS */
+.activities { display: flex; flex-wrap: wrap; gap: 12px; }
+.activity { background: #fff; border: 2px solid #1A1A1A; border-radius: 14px; padding: 14px 16px; box-shadow: 3px 3px 0 #1A1A1A; flex: 1 1 calc(50% - 6px); min-width: 240px; }
+.act-id { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #B83E5D; text-transform: uppercase; }
+.act-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 16px; line-height: 1.2; margin: 4px 0 8px; }
+.act-tools { display: flex; flex-direction: column; gap: 4px; }
+.tool-tag { background: #F8F8F4; border: 1px solid #1A1A1A; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 100px; display: inline-block; width: fit-content; }
+.tool-tag.feature { background: #FFE566; }
+
+.activities.three .activity { flex: 1 1 calc(33.33% - 8px); min-width: 180px; }
+.activities.one .activity { flex: 1 1 100%; }
+
+/* SECTION-LEVEL FOOTER */
+.section-footer { background: #fff; border: 1.5px solid #1A1A1A; border-radius: 100px; padding: 8px 16px; margin-top: 14px; font-size: 11px; font-weight: 600; text-align: center; }
+
+/* ARROW between sections */
+.arrow { display: flex; justify-content: center; padding: 6px 0; }
+.arrow::after { content: '↓'; font-size: 28px; font-weight: 700; color: #1A1A1A; }
+
+/* FINAL CERTIFICATION ROW */
+.cert-row { display: flex; gap: 12px; margin-top: 16px; }
+.cert-box { padding: 18px; border: 2px solid #1A1A1A; border-radius: 14px; text-align: center; box-shadow: 3px 3px 0 #1A1A1A; background: #fff; flex: 1; }
+.cert-box .threshold { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 30px; color: #B83E5D; line-height: 1; }
+.cert-box .outcome { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #555; margin-top: 6px; }
+.cert-box .result { font-size: 12px; margin-top: 4px; }
+.cert-box.success { background: #FF9CB8; }
+
+/* META LABELS at section 2 split */
+.split-note { background: #fff; border: 1.5px dashed #1A1A1A; border-radius: 12px; padding: 8px 14px; margin: 12px 0; font-size: 11px; color: #555; font-style: italic; text-align: center; }
+
+@media (max-width: 768px) {
+  body { padding: 30px 16px; }
+  .title-area h1 { font-size: 38px; }
+  .section { padding: 20px 18px; }
+  .section-title { font-size: 20px; }
+  .activities { flex-direction: column; }
+  .activity { flex: 1 1 100% !important; min-width: auto !important; }
+  .cert-row { flex-direction: column; }
+}
+
+@media print {
+  body { padding: 0; background: white; }
+  .section { box-shadow: 4px 4px 0 #1A1A1A !important; page-break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="title-area">
+    <div class="pill">DigComp 3.0 · Ικανοτητα 1.3 · Ενδιαμεσο Επιπεδο</div>
+    <h1>εμπιστεύομαι<br>το <span class="pink">AI;</span></h1>
+    <div class="subtitle">Διάγραμμα Ροής Εκπαιδευτικών Δραστηριοτήτων · 1,5 ώρα</div>
+  </div>
+
+  <!-- ============ ENOTITA 1 — EISAGOGI ============ -->
+  <div class="section section-1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-info">
+        <div class="section-title">Εισαγωγή <span class="duration">15'</span></div>
+        <div class="section-meta">Welcome · Εισαγωγη στο Θεμα · Pre-test</div>
+      </div>
+    </div>
+    
+    <div class="activities three">
+      <div class="activity">
+        <div class="act-id">1.1 · 5'</div>
+        <div class="act-title">Εισαγωγή – Σκοπός</div>
+        <div class="act-tools">
+          <span class="tool-tag">video presentations</span>
+          <span class="tool-tag">presentation decks</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="act-id">1.2 · 5'</div>
+        <div class="act-title">Εισαγωγή στο Θέμα</div>
+        <div class="act-tools">
+          <span class="tool-tag">presentation decks</span>
+          <span class="tool-tag">interactive pdfs</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="act-id">1.3 · 5'</div>
+        <div class="act-title">Pre-test Διαγνωστική</div>
+        <div class="act-tools">
+          <span class="tool-tag">quizzes</span>
+          <span class="tool-tag">Single select problem</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <!-- ============ ENOTITA 2 — PSIFIAKO MIKRO-MATHIMA ============ -->
+  <div class="section section-2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-info">
+        <div class="section-title">Ψηφιακό Μικρο-Μάθημα <span class="duration">60'</span></div>
+        <div class="section-meta">Παρουσιαση Εννοιων · Εξασκηση · Επιδειξη · Εξασκηση Δεξιοτητας</div>
+      </div>
+    </div>
+
+    <!-- ΜΑ-1 -->
+    <div class="ma-divider">ΜΑ-1 · Bloom: Understand</div>
+    <div class="activities">
+      <div class="activity">
+        <div class="act-id">2.1 · 15'</div>
+        <div class="act-title">Παρουσίαση Εννοιών</div>
+        <div class="act-tools">
+          <span class="tool-tag">charts &amp; diagrams</span>
+          <span class="tool-tag">knowledge infographics</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="act-id">2.2 · 15'</div>
+        <div class="act-title">Εξάσκηση Κατανόησης</div>
+        <div class="act-tools">
+          <span class="tool-tag">quizzes</span>
+          <span class="tool-tag">spot the mistake</span>
+          <span class="tool-tag feature">+ Feedback &amp; Guidance</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ΜΑ-2 -->
+    <div class="ma-divider ma2">ΜΑ-2 · Bloom: Apply + Evaluate</div>
+    <div class="activities">
+      <div class="activity">
+        <div class="act-id">2.3 · 15'</div>
+        <div class="act-title">Επίδειξη Δεξιότητας</div>
+        <div class="act-tools">
+          <span class="tool-tag">step by step guides</span>
+          <span class="tool-tag">Checklists</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="act-id">2.4 · 15'</div>
+        <div class="act-title">Εξάσκηση Δεξιότητας</div>
+        <div class="act-tools">
+          <span class="tool-tag">quizzes</span>
+          <span class="tool-tag">decision tree</span>
+          <span class="tool-tag feature">+ Feedback &amp; Guidance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-footer">Διαμορφωτική αξιολόγηση · Ανατροφοδότηση ανά επιλογή · Καθοδήγηση 2 επιπέδων</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <!-- ============ ENOTITA 3 — TELIKI AXIOLOGISI ============ -->
+  <div class="section section-3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-info">
+        <div class="section-title">Τελική Αξιολόγηση &amp; Πιστοποίηση <span class="duration">15'</span></div>
+        <div class="section-meta">10 Ερωτησεις · Οριο 80% · Εως 3 Προσπαθειες</div>
+      </div>
+    </div>
+
+    <div class="activities">
+      <div class="activity">
+        <div class="act-id">3.1 · 3'</div>
+        <div class="act-title">Οδηγίες Εξέτασης</div>
+        <div class="act-tools">
+          <span class="tool-tag">Υπερκείμενο</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="act-id">3.2 · 12'</div>
+        <div class="act-title">Τελική Αξιολόγηση</div>
+        <div class="act-tools">
+          <span class="tool-tag">multiple choice questions</span>
+          <span class="tool-tag">decision tree</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-row">
+      <div class="cert-box success">
+        <div class="threshold">≥ 80%</div>
+        <div class="outcome">Επιτυχια</div>
+        <div class="result">Πιστοποιητικό Ολοκλήρωσης</div>
+      </div>
+      <div class="cert-box">
+        <div class="threshold">&lt; 80%</div>
+        <div class="outcome">Επαναληψη</div>
+        <div class="result">Επιστροφή στο υλικό</div>
+      </div>
+    </div>
+
+    <div class="section-footer">Αθροιστική (summative) αξιολόγηση · Χωρίς feedback κατά τη διάρκεια · Έως 3 προσπάθειες</div>
+  </div>
+
+</div>
+</body>
+</html>
