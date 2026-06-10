@@ -273,7 +273,7 @@
           <div>
             <div class="card-number">Κάρτα 01</div>
             <h2 class="card-title">Επινοημένες πηγές</h2>
-            <p class="card-subtitle">Το AI αναφέρεται σε μελέτες, βιβλία ή άρθρα που δεν υπάρχουν στην πραγματικότητα.</p>
+            <p class="card-subtitle">Το AI επινοεί βιβλιογραφικές αναφορές, ονόματα ερευνητών, βιβλία ή μελέτες που δεν υπάρχουν, αλλά παρουσιάζονται ως αληθινές.</p>
           </div>
           <span class="flip-hint">Πάτησε για παράδειγμα</span>
         </div>
@@ -282,16 +282,15 @@
           <h3>Επινοημένες πηγές</h3>
           <div class="back-section">
             <span class="back-label label-example">Παράδειγμα</span>
-            <p>Ένα AI εργαλείο αναφέρει:</p>
-            <p class="example-quote">"Σύμφωνα με μελέτη του Πανεπιστημίου Cambridge (Smith & Johnson, 2021)..."</p>
+            <p class="example-quote">"Σύμφωνα με τη μελέτη Smith et al. (2022) στο Journal of Clinical Endocrinology..."</p>
           </div>
           <div class="back-section">
             <span class="back-label label-reality">Στην πραγματικότητα</span>
-            <p>Η μελέτη δεν υπάρχει. Οι ερευνητές δεν υπάρχουν. Το AI παρήγαγε αληθοφανείς αναφορές βάσει στατιστικών προτύπων.</p>
+            <p>Η μελέτη δεν υπάρχει. Το AI κατασκεύασε όνομα, χρονολογία και περιοδικό για να ενισχύσει την αξιοπιστία της απάντησής του.</p>
           </div>
           <div class="back-section">
             <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
-            <p>Όταν το AI δίνει συγκεκριμένα ονόματα, ημερομηνίες και τίτλους — πάντα επαλήθευσέ τα.</p>
+            <p>Αναζητώ τη συγκεκριμένη μελέτη ή βιβλίο στο Google Scholar ή σε βάση δεδομένων. Αν δεν υπάρχει, είναι "hallucination".</p>
           </div>
           <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
         </div>
@@ -305,7 +304,7 @@
           <div>
             <div class="card-number">Κάρτα 02</div>
             <h2 class="card-title">Ξεπερασμένες πληροφορίες</h2>
-            <p class="card-subtitle">Τα AI εργαλεία έχουν "ημερομηνία λήξης" στις γνώσεις τους — δεν γνωρίζουν τι έχει αλλάξει μετά.</p>
+            <p class="card-subtitle">Τα AI εργαλεία εκπαιδεύονται με δεδομένα μέχρι μια συγκεκριμένη ημερομηνία (cutoff date). Πληροφορίες που έχουν αλλάξει μετά δεν είναι ενημερωμένες.</p>
           </div>
           <span class="flip-hint">Πάτησε για παράδειγμα</span>
         </div>
@@ -314,16 +313,15 @@
           <h3>Ξεπερασμένες πληροφορίες</h3>
           <div class="back-section">
             <span class="back-label label-example">Παράδειγμα</span>
-            <p>Ρωτάς το AI:</p>
-            <p class="example-quote">"Ποιο είναι το όριο αφορολόγητου για το 2025;"<br>Το AI απαντά: "Το αφορολόγητο είναι 8.636€..."</p>
+            <p class="example-quote">Ρωτάς τον τρέχοντα ΦΠΑ στην εστίαση, και το AI σου δίνει το ποσοστό που ίσχυε πριν την τελευταία τροποποίηση.</p>
           </div>
           <div class="back-section">
             <span class="back-label label-reality">Στην πραγματικότητα</span>
-            <p>Η εκπαίδευση του μοντέλου μπορεί να σταμάτησε το 2023 — και έκτοτε το όριο έχει αλλάξει.</p>
+            <p>Το AI δίνει την "παλιά" απάντηση χωρίς να σε προειδοποιήσει για την αλλαγή.</p>
           </div>
           <div class="back-section">
             <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
-            <p>Νόμοι, τιμές, ποσοστά, ονόματα στελεχών, πρόσφατα γεγονότα — όλα αυτά απαιτούν επαλήθευση σε ενημερωμένες πηγές.</p>
+            <p>Ελέγχω την ημερομηνία cutoff του εργαλείου και διασταυρώνω με επίσημη ελληνική πηγή (gov.gr, ΑΑΔΕ).</p>
           </div>
           <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
         </div>
@@ -337,25 +335,24 @@
           <div>
             <div class="card-number">Κάρτα 03</div>
             <h2 class="card-title">Λάθη σε αριθμούς</h2>
-            <p class="card-subtitle">Το AI δυσκολεύεται με ακριβείς υπολογισμούς, ποσοστά και αριθμητικά δεδομένα.</p>
+            <p class="card-subtitle">Τα AI εργαλεία μπορεί να παρουσιάσουν λανθασμένα στατιστικά, ποσοστά, υπολογισμούς ή χρηματικά ποσά, παρότι δείχνουν σιγουριά στην απάντησή τους.</p>
           </div>
           <span class="flip-hint">Πάτησε για παράδειγμα</span>
         </div>
         <div class="card-face card-back">
           <div class="card-number">Κάρτα 03</div>
-          <h3>Λάθη σε αριθμούς & στατιστικά</h3>
+          <h3>Λάθη σε αριθμούς</h3>
           <div class="back-section">
             <span class="back-label label-example">Παράδειγμα</span>
-            <p>Ρωτάς:</p>
-            <p class="example-quote">"Πόσος είναι ο πληθυσμός της Αθήνας;"<br>Το AI απαντά: "Η Αθήνα έχει πληθυσμό 3.154.591 κατοίκους σύμφωνα με την απογραφή του 2021."</p>
+            <p class="example-quote">"Στην Ελλάδα, το 78% των πολιτών χρησιμοποιούν AI εργαλεία καθημερινά."</p>
           </div>
           <div class="back-section">
             <span class="back-label label-reality">Στην πραγματικότητα</span>
-            <p>Ο πραγματικός αριθμός μπορεί να είναι εντελώς διαφορετικός. Το AI παρήγαγε έναν "λογικό" αριθμό βάσει στατιστικών προτύπων — όχι βάσει πραγματικών δεδομένων.</p>
+            <p>Το ποσοστό μπορεί να είναι επινοημένο ή να αναφέρεται σε άλλο πλαίσιο. Το AI το παρουσιάζει ως αληθινό για να ενισχύσει την απάντησή του.</p>
           </div>
           <div class="back-section">
             <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
-            <p>Συγκεκριμένοι αριθμοί, στατιστικά, μετρήσεις — πάντα διασταυρώνονται με επίσημες πηγές (π.χ. ΕΛΣΤΑΤ, Eurostat).</p>
+            <p>Διασταυρώνω τα αριθμητικά στοιχεία με επίσημη πηγή (ΕΛΣΤΑΤ, Eurostat) ή ακαδημαϊκή έρευνα.</p>
           </div>
           <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
         </div>
@@ -369,7 +366,7 @@
           <div>
             <div class="card-number">Κάρτα 04</div>
             <h2 class="card-title">Υπερβολική σιγουριά</h2>
-            <p class="card-subtitle">Το AI παρουσιάζει με την ίδια σιγουριά και σωστές και λανθασμένες απαντήσεις.</p>
+            <p class="card-subtitle">Τα AI εργαλεία απαντούν με τέτοιο ύφος βεβαιότητας, που οι χρήστες θεωρούν τις απαντήσεις αδιαμφισβήτητες, ακόμη και όταν είναι λάθος.</p>
           </div>
           <span class="flip-hint">Πάτησε για παράδειγμα</span>
         </div>
@@ -378,15 +375,15 @@
           <h3>Υπερβολική σιγουριά</h3>
           <div class="back-section">
             <span class="back-label label-example">Παράδειγμα</span>
-            <p>Όταν το AI δεν γνωρίζει κάτι, σπάνια θα πει "δεν ξέρω". Αντί γι' αυτό, παράγει μια αληθοφανή απάντηση με τόνο σιγουριάς.</p>
+            <p class="example-quote">"Είναι αδιαμφισβήτητο ότι ο νόμος 4635/2019 ορίζει σαφώς ότι..."</p>
           </div>
           <div class="back-section">
             <span class="back-label label-reality">Στην πραγματικότητα</span>
-            <p>Το επαγγελματικό, σίγουρο ύφος μιας απάντησης ΔΕΝ είναι ένδειξη ακρίβειας. Είναι απλώς το στυλ γραφής του μοντέλου.</p>
+            <p>Ο νόμος μπορεί να μην υπάρχει ή το άρθρο να αναφέρει κάτι διαφορετικό. Η σιγουριά της απάντησης δεν εγγυάται την ορθότητα.</p>
           </div>
           <div class="back-section">
             <span class="back-label label-spot">Πώς το αναγνωρίζεις</span>
-            <p>Μην εμπιστεύεσαι το ύφος. Εμπιστεύσου την επαλήθευση. Όσο πιο σίγουρο ακούγεται το AI σε ένα θέμα ειδίκευσης, τόσο πιο προσεκτική επαλήθευση χρειάζεται.</p>
+            <p>Φράσεις όπως "είναι αδιαμφισβήτητο", "σαφώς", "πάντα" είναι σήματα κινδύνου. Πάντα ελέγχω με επίσημη πηγή.</p>
           </div>
           <button class="back-close" onclick="event.stopPropagation(); this.closest('.card').classList.remove('flipped');">← Επιστροφή</button>
         </div>
